@@ -1,0 +1,9 @@
+User#1
+email: JohnDoes@mymail.sutd.edu.sg
+pw: IAmJohnDoes1!
+Id: '5e689b52566b33069dadda06'
+
+User#2
+email: JaneDoes@mymail.sutd.edu.sg
+pw: IAmJaneDoes1!
+Id: '5e689b8e566b33069dadda0f'
