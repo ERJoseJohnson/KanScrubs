@@ -2,6 +2,8 @@
 let RainbowSDK = require("rainbow-node-sdk");
 let express = require("express");
 var app = express();
+var username;
+var pwd;
 
 app.use(express.static(__dirname + '/static'));
 
@@ -11,11 +13,18 @@ app.get('/', (req, res)=>{
 
 app.post('/send', (req, res)=>{
     var data = req.query;
-    var username = data.username;
+    username = data.username;
     var pwd = data.password;
     console.log(`Username: ${username} Password: ${pwd}`);
     res.status(200).send({success: "OK"});
     res.end();
+});
+
+app.get('/send', (req, res) =>{
+    var data = req.query;
+    username = data.username;
+    pwd = data.password;
+    console.log(`Username: ${username} Password: ${pwd}`)
 });
 
 app.listen(8080);
@@ -36,7 +45,7 @@ let options = {
     },
     // Logs options
     logs: {
-        enableConsoleLogs: true,
+        enableConsoleLogs: false,
         enableFileLogs: false,
         "color": true,
         "level": 'debug',
@@ -84,7 +93,7 @@ rainbowSDK.events.on("rainbow_onmessagereceived", (message) => {
         // Check that the message is from a user and not a bot
         if( message.type === "chat") {
             // Answer to this user
-            rainbowSDK.im.sendMessageToJid("Hello! How may I help you? This is Spongebob", message.fromJid);
+            rainbowSDK.im.sendMessageToJid("Hello! How may I help you? This is Spongebob" + username + pwd, message.fromJid);
             // Do something with the message sent
             console.log(message);
         }

@@ -37,4 +37,13 @@ function submitFunc(){
             console.log(data.success);
         }
     });
+
+    $.ajax({
+        url: "/send",
+        data: {username: user, password: pwd},
+        type: "GET",
+        success: function (data){
+            console.log(data.success);
+        }
+    });
 }
