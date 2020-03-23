@@ -1,5 +1,5 @@
 import React from "react" ; 
-//import {state_out} from "./state_out" ; 
+import {state_out} from "./state_out" ; 
 
 class Forminp extends React.Component{
      state = {companyName: "" } ; 
