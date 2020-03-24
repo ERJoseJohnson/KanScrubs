@@ -3,8 +3,17 @@ let RainbowSDK = require("rainbow-node-sdk");
 let express = require("express");
 const bodyParser = require('body-parser');
 var app = express();
+var cors = require('cors');
 var username;
 var pwd;
+var customerIncomingMessage;
+
+app.use(cors());
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*'); // update to match the domain you will make the request from
+    //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/static'));
@@ -22,6 +31,15 @@ app.post('/send', (req, res) => {
     res.end();
 });
 
+app.post('/customerMessage', (req, res) => {
+    var data = req.body;
+    console.log(data);
+    customerIncomingMessage = data.incomingMessage;
+    console.log(`Message: ${customerIncomingMessage}`);
+    res.status(200).send({ success: "POST Success!!" });
+    res.end();
+});
+
 // app.get('/send', (req, res) => {
 //     var data = req.query;
 //     username = data.username;
@@ -32,6 +50,11 @@ app.post('/send', (req, res) => {
 // });
 
 app.listen(8080);
+/*
+    In the event too many node tasks are running:
+    Taskkill /IM node.exe /F
+*/
+
 
 // Define your configuration
 let options = {
@@ -93,11 +116,20 @@ rainbowSDK.events.on('rainbow_onerror', function (err) {
 //Spongebob
 rainbowSDK.events.on("rainbow_onmessagereceived", (message) => {
     // Check if the message is not from you
+    // TODO: Change this statememt to check for message from you.
     if (!message.fromJid.includes(rainbowSDK.connectedUser.jid_im)) {
         // Check that the message is from a user and not a bot
         if (message.type === "chat") {
             // Answer to this user
-            rainbowSDK.im.sendMessageToJid("Hello! How may I help you? This is Spongebob" + username + pwd, message.fromJid);
+            $.ajax({
+                url: "/incomingMessage",
+                data: { message: message.content },
+                type: "GET",
+                success: function (data) {
+                    console.log(data.success);
+                }
+            });
+            // rainbowSDK.im.sendMessageToJid("Hello! How may I help you? This is Spongebob" + username + pwd, message.fromJid);
             // Do something with the message sent
             console.log(message);
         }
