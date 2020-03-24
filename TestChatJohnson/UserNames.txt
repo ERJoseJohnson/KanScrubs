@@ -1,5 +1,5 @@
 User#1
-email: JohnDoes@mymail.sutd.edu.sg
+email: JohnDoe@mymail.sutd.edu.sg
 pw: IAmJohnDoes1!
 Id: '5e689b52566b33069dadda06'
 
