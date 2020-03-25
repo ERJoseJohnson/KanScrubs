@@ -46,7 +46,7 @@ app.post('/customerMessage', cors(), (req, res) => {
     console.log('This is what we get', data);
     customerIncomingMessage = data.incomingMessage;
     console.log(`Message: ${customerIncomingMessage}`);
-    //rainbowSDK.im.sendMessageToJid(customerIncomingMessage, '5e689b52566b33069dadda06');
+    rainbowSDK.im.sendMessageToJid(customerIncomingMessage, 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg');
     res.status(200).send({ success: "POST Success!!" });
     res.end();
 });
@@ -73,8 +73,8 @@ let options = {
         host: "sandbox"
     },
     credentials: {
-        login: "josejohnson@mymail.sutd.edu.sg", // To replace by your developer credendials
-        password: "7f*}3K]mQg!3" // To replace by your developer credentials
+        login: "JohnDoe@mymail.sutd.edu.sg", // To replace by your developer credendials
+        password: "IAmJohnDoes1!" // To replace by your developer credentials
     },
     // Application identifier
     application: {
