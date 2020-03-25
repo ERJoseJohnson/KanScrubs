@@ -24,6 +24,7 @@ app.use(cors());
 // });
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/static'));
 
 app.get('/', (req, res) => {
@@ -42,9 +43,10 @@ app.post('/send', (req, res) => {
 //app.options('*', cors());
 app.post('/customerMessage', cors(), (req, res) => {
     var data = req.body;
-    console.log(data);
+    console.log('This is what we get', data);
     customerIncomingMessage = data.incomingMessage;
     console.log(`Message: ${customerIncomingMessage}`);
+    //rainbowSDK.im.sendMessageToJid(customerIncomingMessage, '5e689b52566b33069dadda06');
     res.status(200).send({ success: "POST Success!!" });
     res.end();
 });
