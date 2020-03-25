@@ -97,9 +97,11 @@ rainbowSDK.events.on('rainbow_onready', () => {
     // Do something when the SDK is ready to be used
     console.log("Ready!")
     let contacts = rainbowSDK.contacts.getAll();
-    // for (let elems in contacts) {
-    //     console.log(elems)
-    // }
+    for (let elems in contacts) {
+        //console.log(contacts[elems])
+        console.log(contacts[elems].loginEmail)
+        console.log(contacts[elems].jid_im)
+    }
 
     rainbowSDK.im.sendMessageToJid("Hi there Pei Yuan! This is Johnson!", contacts[0].jid_im);  //Pei Yuan
     //rainbowSDK.im.sendMessageToJid("Hi there! This is an automated message!", contacts[1].jid_im);

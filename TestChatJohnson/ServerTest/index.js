@@ -7,6 +7,7 @@ var cors = require('cors');
 var username;
 var pwd;
 var customerIncomingMessage;
+var adminOutgoingMessage;
 
 app.options("/*", function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -38,6 +39,11 @@ app.post('/send', (req, res) => {
     console.log(`Username: ${username} Password: ${pwd}`);
     res.status(200).send({ success: "POST Success!!" });
     res.end();
+});
+
+app.get('/adminResponse', (req, res) => {
+    console.log(req.body);
+    res.send({ adminResponse: adminOutgoingMessage });
 });
 
 //app.options('*', cors());
@@ -132,17 +138,19 @@ rainbowSDK.events.on("rainbow_onmessagereceived", (message) => {
         // Check that the message is from a user and not a bot
         if (message.type === "chat") {
             // Answer to this user
-            $.ajax({
-                url: "/incomingMessage",
-                data: { message: message.content },
-                type: "GET",
-                success: function (data) {
-                    console.log(data.success);
-                }
-            });
+            adminOutgoingMessage = message.content;
+            console.log("this is admin outgoing message", adminOutgoingMessage);
+            // $.ajax({
+            //     url: "/incomingMessage",
+            //     data: { message: message.content },
+            //     type: "GET",
+            //     success: function (data) {
+            //         console.log(data.success);
+            //     }
+            // });
             // rainbowSDK.im.sendMessageToJid("Hello! How may I help you? This is Spongebob" + username + pwd, message.fromJid);
             // Do something with the message sent
-            console.log(message);
+            //console.log(message);
         }
     }
 });

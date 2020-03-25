@@ -2,8 +2,14 @@ User#1
 email: JohnDoe@mymail.sutd.edu.sg
 pw: IAmJohnDoes1!
 Id: '5e689b52566b33069dadda06'
+jid_Im: '96eda241bf90483eb3809e08762b8c42@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
 
 User#2
 email: JaneDoes@mymail.sutd.edu.sg
 pw: IAmJaneDoes1!
 Id: '5e689b8e566b33069dadda0f'
+jid_IM: '35d0036ab99a4f10b4e6e091f6fcd258@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
+
+User#3
+email: josejohnson@mymail.sutd.edu.sg
+jid_im: 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
