@@ -23,7 +23,7 @@ class Forminp extends React.Component {
                 <form onSubmit={this.resetInput}>
                     <input
                         className="bg-light-green dib br2 pa3 ma2 shadow-5 tc"
-                        style={{ width: "700px" }}
+
                         type="text"
                         value={this.state.companyName}
                         onChange={event => this.setState({ companyName: event.target.value })}
