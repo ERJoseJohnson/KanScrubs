@@ -37,23 +37,33 @@ app.post('/send', (req, res) => {
     username = data.username;
     pwd = data.password;
     console.log(`Username: ${username} Password: ${pwd}`);
-    res.status(200).send({ success: "POST Success!!" });
+    res.status(200).send({ success: "POST login Success!!" });
+    res.end();
+});
+
+app.post('/user/:username', (req, res) => {
+    console.log("chat environment requested for params: ");
+    console.log(req.body.username);
+    let environ = 'setup chat environment for ' + req.params.username;
+    res.send({ environment: environ, success: "GET login details success" });
     res.end();
 });
 
 app.get('/adminResponse', (req, res) => {
-    console.log(req.body);
-    res.send({ adminResponse: adminOutgoingMessage });
+    //console.log("respone from admin: ");
+    //console.log(req.body);
+    res.send({ adminResponse: adminOutgoingMessage, success: "GET admin response success" });
+    res.end();
 });
 
 //app.options('*', cors());
 app.post('/customerMessage', cors(), (req, res) => {
     var data = req.body;
-    console.log('This is what we get', data);
+    console.log('response from customer:', data);
     customerIncomingMessage = data.incomingMessage;
-    console.log(`Message: ${customerIncomingMessage}`);
+    console.log(`Sending to rainbow admin platform`);
     rainbowSDK.im.sendMessageToJid(customerIncomingMessage, 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg');
-    res.status(200).send({ success: "POST Success!!" });
+    res.status(200).send({ success: "POST customer message Success!!" });
     res.end();
 });
 
