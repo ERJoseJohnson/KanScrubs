@@ -21,3 +21,8 @@
   flex-direction: row;
   text-align: center;
 }
+
+.chatbox{
+  height: 300px ; 
+  overflow-y: scroll;
+}

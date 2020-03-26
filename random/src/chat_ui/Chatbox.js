@@ -9,15 +9,22 @@ var incomingMessage = '';
 var prevIncomingMessage = '';
 
 
+
 class Chatbox extends React.Component {
     //constructor() {
+
+    msgEnd = React.createRef();
     state = {
-        companyName: "",
+        companyName: 1,
         stored_value: "Your Message will appear hear",
         history: this.props.history,
-        time: Date.now(),
+
     }
+
+
+
     //}
+
 
     updateHistory = (event) => {
         event.preventDefault();
@@ -26,6 +33,7 @@ class Chatbox extends React.Component {
         outgoingMessage = event.target[0].value;
         new_history.push({ user: "customer1", message: outgoingMessage });
         super.setState({ history: new_history });
+        this.setState({ companyName: 0 })
         // Sedning new message as POST request to server
         // postData(outgoingMessage);
         //send(event.target[0].value) ; 
@@ -52,7 +60,7 @@ class Chatbox extends React.Component {
         //     })
     };
 
-    receiveMessage = () => {
+    receiveMessage = async () => {
         axios.get('http://localhost:8080/adminResponse', { success: "Received admin message" })
             .then((response) => {
                 //if (incomingMessage != response.adminResponse) {
@@ -67,6 +75,7 @@ class Chatbox extends React.Component {
                     prevIncomingMessage = response.data.adminResponse;
                     console.log("in the receiveMessage part")
                     this.updateAdminMessages();
+
                 }
                 this.render();
             })
@@ -91,9 +100,9 @@ class Chatbox extends React.Component {
         return (
 
             <div className="ba bw2 pa2 bg-light-yellow br4" >
-                <div>{this.state.time}</div>
-                <ChatHistory history={this.state.history} />
-                <FormInp onSubmit={this.updateHistory} />
+
+                <div className="chatbox"><ChatHistory history={this.state.history} /></div>
+                <FormInp onSubmit={this.updateHistory} history={this.state.history} />
 
             </div>
         );
