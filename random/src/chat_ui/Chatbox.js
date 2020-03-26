@@ -10,13 +10,14 @@ var prevIncomingMessage = '';
 
 
 class Chatbox extends React.Component {
-    constructor() {
-        state = {
-            companyName: "",
-            stored_value: "Your Message will appear hear",
-            history: this.props.history,
-        }
+    //constructor() {
+    state = {
+        companyName: "",
+        stored_value: "Your Message will appear hear",
+        history: this.props.history,
+        time: Date.now(),
     }
+    //}
 
     updateHistory = (event) => {
         event.preventDefault();
@@ -55,12 +56,21 @@ class Chatbox extends React.Component {
         axios.get('http://localhost:8080/adminResponse', { success: "Received admin message" })
             .then((response) => {
                 //if (incomingMessage != response.adminResponse) {
-                console.log(response.adminResponse);
+                console.log(response.data);
+                console.log("this is the response from server", response.data.adminResponse);
                 var new_history = this.state.history;
                 // Just created a file bound variable to use with the getData() method
-                incomingMessage = response.adminResponse;
+                incomingMessage = response.data.adminResponse;
+                console.log("This is the incoming", incomingMessage)
+                console.log("This is the previous one", prevIncomingMessage)
+                if (incomingMessage != prevIncomingMessage && incomingMessage != null) {
+                    prevIncomingMessage = response.data.adminResponse;
+                    console.log("in the receiveMessage part")
+                    this.updateAdminMessages();
+                }
+                this.render();
             })
-        console.log(response);
+        //console.log(response);
         //console.log("klsdfjaslkdfjslad");
         // if (prevIncomingMessage !== incomingMessage) {
         //     prevIncomingMessage = response.adminResponse;
@@ -69,22 +79,19 @@ class Chatbox extends React.Component {
         // }
     }
     updateAdminMessages = () => {
-        prevIncomingMessage = response.adminResponse;
+        var new_history = this.state.history;
         new_history.push({ user: "admin", message: incomingMessage });
         super.setState({ history: new_history });
         console.log("Updated admind messages");
     }
 
     render() {
-        // this.receiveMessage();
-        // //console.log("rendering......")
-        // if (prevIncomingMessage != incomingMessage) {
-        //     this.updateAdminMessages();
-        // }
+        this.receiveMessage();
+        console.log("rendering......")
         return (
 
             <div className="ba bw2 pa2 bg-light-yellow br4" >
-
+                <div>{this.state.time}</div>
                 <ChatHistory history={this.state.history} />
                 <FormInp onSubmit={this.updateHistory} />
 
