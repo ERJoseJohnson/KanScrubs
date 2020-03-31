@@ -44,7 +44,8 @@ class Chatbox extends React.Component {
         //     console.log(`😱 Axios request failed: ${e}`);
         // }
 
-        axios.post('http://localhost:8080/customerMessage', {
+        //http://localhost:8080/customerMessage
+        axios.post('http://10.12.84.5:8080/customerMessage', {
             incomingMessage: outgoingMessage
         })
             .then((response) => {
@@ -61,7 +62,7 @@ class Chatbox extends React.Component {
     };
 
     receiveMessage = async () => {
-        axios.get('http://localhost:8080/adminResponse', { success: "Received admin message" })
+        axios.get('http://10.12.84.5:8080/adminResponse', { success: "Received admin message" })
             .then((response) => {
                 //if (incomingMessage != response.adminResponse) {
                 console.log(response.data);
