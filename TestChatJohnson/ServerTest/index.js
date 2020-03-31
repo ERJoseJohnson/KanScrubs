@@ -67,6 +67,14 @@ app.post('/customerMessage', cors(), (req, res) => {
     res.end();
 });
 
+app.get('/chatEnv', cors(), (req, res) => {
+    var data = req.body;
+    console.log('response from customer:', data);
+    res.status(200).send({ success: "Get chatEnv success" });
+    res.end();
+    console.log("From the frontend")
+});
+
 // app.get('/send', (req, res) => {
 //     var data = req.query;
 //     username = data.username;

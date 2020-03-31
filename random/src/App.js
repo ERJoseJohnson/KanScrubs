@@ -4,6 +4,7 @@ import Chatbox from "./chat_ui/Chatbox";
 import { state_out } from "./state_out";
 import "tachyons";
 import Login from './login/Login';
+import axios from "axios";
 
 
 
@@ -14,7 +15,8 @@ class App extends React.Component {
     this.state = {
       stored_value: "Your Message will appear hear",
       incoming: state_out.incoming_value,
-      history: []
+      history: [], 
+      a : "", 
     }
 
     this.userInfo = {
@@ -39,11 +41,28 @@ class App extends React.Component {
 
   };
 
+  update = (data) => {
+    this.setState({a : data.a})
+  } ; 
+
+
 
 
   render() {
+    
+    axios.get('http://127.0.0.1:5000/adminResponse', { success: "Received admin message" })
+    .then((response) => {
+        console.log(response.data) ;
+        var sendResponse = response.data;
+        axios.get('http://localhost:8080/chatEnv', sendResponse)
+        .then((response) => {
+            console.log(response.data) ; 
+             
+          })
+      })
     return (
       <div>
+        <h1>{this.state.a}</h1>
         <h1 className="tc">Alcatel  Routing  Engine</h1>
         <div className="pl4 pr4"><Login userInfo={this.userInfo} onSumbit={this.login} /></div>
         <h2 className=" pa3 ma2 pl5">Assigned Admin = </h2>

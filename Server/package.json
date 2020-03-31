@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "rainbow-node-sdk": "^1.68.0"
+    "rainbow-node-sdk": "^1.69.0"
   }
 }
