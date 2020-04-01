@@ -68,37 +68,88 @@ let options = {
         sendReadReceipt: true
     }
 };
-// Instantiate the SDK
-let rainbowSDK = new RainbowSDK(options);
 
-// Start the SDK
-rainbowSDK.start();
+// Upon pressing Login button, send a dictionary(logindict) to backend, backend updates newcreds, and subsequently options (both done in updateBoth).
 
+logindict = {login: "patrickstar@sutd.mymail.sutd.edu.sg", password: "Under@R0ck", user: "Patrick"};
 
-rainbowSDK.events.on('rainbow_onready', function() {
-    // do something when the SDK is connected to Rainbow
-    console.log("HELLO, Rainbow on ready.");
+function updateBoth(dictfromReact) {
+    newcreds = {credentials: {
+        login: dictfromReact["login"],
+        password: dictfromReact["password"]
+    }}
     
-});
+    options = Object.assign(options, newcreds);
+    console.log(newcreds);
+}
 
-rainbowSDK.events.on('rainbow_onerror', function(err) {
-    // do something when something goes wrong
-    console.log("HELLO, Rainbow on error.");
-});
+updateBoth(logindict);
 
-//Spongebob
-rainbowSDK.events.on("rainbow_onmessagereceived", (message) => {
-    // Check if the message is not from you
-    if(!message.fromJid.includes(rainbowSDK.connectedUser.jid_im)) {
-        // Check that the message is from a user and not a bot
-        if( message.type === "chat") {
-            // Answer to this user
-            rainbowSDK.im.sendMessageToJid("Hello! How may I help you? This is Spongebob" + username + pwd, message.fromJid);
-            // Do something with the message sent
-            console.log(message);
+// Instantiating and starting SDK should be in a function?????
+
+var asdf = "rainbowSDK" + logindict["user"];
+
+console.log(`This is asdf: ${asdf}`);
+
+function instantiatingandStart(rainbowSDKname) {
+    
+    rainbowSDKname = new RainbowSDK(options);
+    
+    rainbowSDKname.start();
+}
+
+instantiatingandStart(asdf);
+
+// console.log(`This is login: ${options.credentials.login}, and this is password: ${options.credentials.password}`);
+
+
+// Dictionary is to keep track who is logged to which SDK.
+dictionary = {'Spongebob': "RainbowSDKSpongebob", 'Krabs': "RainbowSDKKrabs", 'Sandy': "RainbowSDKSandy" };
+dictionary[logindict["user"]] = asdf;
+// console.log(dictionary);
+
+var keys = Object.keys(dictionary);
+
+
+// for(var i = 0; i < keys.length;i++){
+//     //keys[i] for key
+//     //dictionary[keys[i]] for the value
+//  }
+
+// When I update the dictionary outside, will the while loop take into account the new entry???? #TODO
+while (true) {
+    for (var i = 0; i < keys.length; i++) {
+        // For each user currently logged in,
+        dictionary[keys[i]].events.on("rainbow_onmessagereceived", (message) => {
+        // Check if the message is not from you
+        if(!message.fromJid.includes(dictionary[keys[i]].connectedUser.jid_im)) {
+            // Check that the message is from a user and not a bot
+            if(message.type === "chat") {
+                // Answer to this user
+                dictionary[keys[i]].im.sendMessageToJid("Hello! How may I help you? This is Spongebob" + username + pwd, message.fromJid);
+                // Do something with the message sent
+                console.log(message);
+            }
         }
+    });
     }
-});
+}
+
+
+
+
+// rainbowSDK.events.on('rainbow_onready', function() {
+//     // do something when the SDK is connected to Rainbow
+//     console.log("HELLO, Rainbow on ready.");
+// });
+
+// rainbowSDK.events.on('rainbow_onerror', function(err) {
+//     // do something when something goes wrong
+//     console.log("HELLO, Rainbow on error.");
+// });
+
+
+
 
 // Get process.stdin as the standard input object.
 var standard_input = process.stdin;
