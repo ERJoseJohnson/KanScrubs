@@ -1,4 +1,5 @@
 // import { Pool } from 'pg';
+const Queue = require('./Queue')
 
 const Pool = require('pg').Pool
 const pool = new Pool({
@@ -27,9 +28,56 @@ const getCurrentCustomers = (request, response) => {
     })
 }
 
+const getAvailableAgents = () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM agents WHERE status = $1 ORDER BY timelastavailable ASC', [true], (error, results) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve(results.rows)
+        })
+
+    })
+}
+
+const getCustomerQueries = () => {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM customres WHERE assignedagent IS NULL ORDER BY querycreatedtime ASC', (error, results) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve(results.rows)
+        })
+    })
+}
+
 const getCustomerfromUsername = (username) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM customercreds WHERE username = $1', [username], (error, results) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve(results.rows)
+        })
+
+    })
+}
+
+const updateAgentStatus = (agentID, status) => {
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE agents SET status = $1 WHERE id = $2', [status, agentID], (error, results) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve(results.rows)
+        })
+
+    })
+}
+
+const setCustomerAssignedAgent = (customerID, agentID) => {
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE customres SET assignedagent = $1 WHERE id = $2', [agentID, customerID], (error, results) => {
             if (error) {
                 return reject(error)
             }
@@ -56,7 +104,6 @@ const addCustomerQuery = (username, querytype) => {
         }).catch((error) => {
             console.log(error)
         })
-        //pool.query('INSERT INTO customres (')
     })
 }
 
@@ -65,6 +112,10 @@ module.exports = {
     getCurrentCustomers,
     getCustomerfromUsername,
     addCustomerQuery,
+    getAvailableAgents,
+    getCustomerQueries,
+    updateAgentStatus,
+    setCustomerAssignedAgent
     // getUserById,
     // createUser,
     // updateUser,
