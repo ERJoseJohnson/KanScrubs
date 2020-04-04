@@ -24,7 +24,7 @@ class ChatHistory extends React.Component {
         })
         return (
 
-            <div className="bb" >
+            <div className="" >
                 {messageArray}
                 <div ref={this.msgEnd} />
             </div>

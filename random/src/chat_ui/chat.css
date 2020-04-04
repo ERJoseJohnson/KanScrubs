@@ -1,0 +1,71 @@
+.par{
+    background-image: url("./call_center.jpg");
+    opacity: 0.8;
+    background-size: cover;
+    height: 100vh;
+    padding : 2% ; 
+}
+
+.chatBox{
+    position: relative; 
+    /* padding : 50 px; */
+    background: rgba(255, 255, 255, 0.3);
+    /* padding-top: 15%; */
+    width: cover;
+}
+
+.chatHis{
+    
+    height: 60vh; 
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+
+.sender{
+    color : rgb(3, 9, 44) ; 
+    font-style: italic;
+    font-family:  Arial;
+    font-weight: 700;
+    font-size: medium;
+}
+.message{
+    color : rgb(34, 5, 53) ; 
+    font-style: normal;
+    font-family:  Arial;
+    font-weight: 500;
+    font-size: small;
+}  
+
+input {
+    
+    background-color: transparent;
+    border: 0px solid;
+    border-bottom: rgb(48, 25, 70) 2px solid;
+    width: 70% ;
+    color:rgb(26, 22, 43);
+}
+
+button {
+    
+    border: 0px solid;
+    color:white;
+
+}
+
+.form {
+    display: flex ; 
+    flex-direction: row;
+    text-align: center;
+    padding-left: 35%;
+}
+
+.send{
+    padding-left: 0px;
+    padding-top: 10px;
+    
+
+}

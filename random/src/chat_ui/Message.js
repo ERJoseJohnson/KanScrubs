@@ -1,13 +1,14 @@
 import React from "react" ; 
+import "./chat.css" ; 
 
 class Message extends React.Component{
     state = {companyName: "" } ; 
    render(){
        return(
            
-           <div className="bb">
-               <h5 className = "bg-light-green dib br3 pa2 ma2 f6 lh-copy tc">{this.props.user}</h5>
-               <p className="pl3">{this.props.message}</p>
+           <div className="">
+               <p className = "sender pl3 dib ma2  tc">{this.props.user}</p>
+               <p className=" message f6 pl5">{this.props.message}</p>
 
            </div>
        ) ; 

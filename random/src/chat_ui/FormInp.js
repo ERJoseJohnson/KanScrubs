@@ -18,22 +18,20 @@ class Forminp extends React.Component {
         return (
 
 
-            <div className="tc">
+            <div className="tc bt bw1">
 
-                <form onSubmit={this.resetInput}>
+                <form className=" form " onSubmit={this.resetInput}>
                     <input
-                        className="bg-light-green dib br2 pa3 ma2 shadow-5 tc"
-
+                        className="pa2"
+                            
                         type="text"
                         value={this.state.companyName}
                         onChange={event => this.setState({ companyName: event.target.value })}
                         placeholder="Enter Text here"
                         required
                     />
-                    <button
-                        className="bg-light-green dib br2 pa3 ma2 shadow-5 tc"
-                        type="submit"
-                    >Send</button>
+                    <div className="send"><button className="">SEND</button></div>
+                    
                 </form>
             </div>
         );

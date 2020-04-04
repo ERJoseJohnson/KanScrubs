@@ -1,6 +1,7 @@
 import React from "react";
 import ChatHistory from "./ChatHistory";
 import FormInp from "./FormInp";
+import "./chat.css" ; 
 import send from "./rainbow/Send";
 import axios from "axios";
 
@@ -100,12 +101,17 @@ class Chatbox extends React.Component {
         console.log("rendering......")
         return (
 
-            <div className="ba bw2 pa2 bg-light-yellow br4" >
+            <div className="par">
 
-                <div className="chatbox"><ChatHistory history={this.state.history} /></div>
-                <FormInp onSubmit={this.updateHistory} history={this.state.history} />
+                <div className="chatBox pb2">
+                    <p className="head1 pb1 pa4 tc">ALCATEL</p>
+                    <div className="chatHis"><ChatHistory history={this.state.history} /></div>
+                    <FormInp onSubmit={this.updateHistory} history={this.state.history} />
 
+                </div>
             </div>
+
+
         );
     }
 }
@@ -134,3 +140,11 @@ class Chatbox extends React.Component {
 //     console.log("Updated admind messages");
 // }
 export default Chatbox; 
+
+
+{/* <div className="ba bw2 pa2 bg-light-yellow br4" >
+
+<div className="chatbox"><ChatHistory history={this.state.history} /></div>
+<FormInp onSubmit={this.updateHistory} history={this.state.history} />
+
+</div> */}
