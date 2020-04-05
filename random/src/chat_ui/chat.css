@@ -69,3 +69,11 @@ button {
     
 
 }
+
+.header{
+    text-align: end;
+}
+
+.logout{
+    width: 100px;
+}

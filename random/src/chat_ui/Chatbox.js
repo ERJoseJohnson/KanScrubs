@@ -102,7 +102,9 @@ class Chatbox extends React.Component {
         return (
 
             <div className="par">
-
+                <div className="header">
+                    <button className="logout br2 shadow grow" onClick={this.props.signOut}>SIGN OUT</button>
+                </div>
                 <div className="chatBox pb2">
                     <p className="head1 pb1 pa4 tc">ALCATEL</p>
                     <div className="chatHis"><ChatHistory history={this.state.history} /></div>

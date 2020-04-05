@@ -31,11 +31,32 @@ class App extends React.Component {
     this.setState({loggedin : 1}) ; 
     console.log(this.state.loggedin) ;
     console.log("logged in ") 
-    // create a call to routing engine 
-    // log in 
-    // load chat history 
-
   };
+
+  signout = () =>{
+    window.location.reload(true) ; 
+  }
+
+    // Things to do before unloading/closing the tab
+  doSomethingBeforeUnload = () => {
+      // Do something
+      window.alert("Are you sure you want to close ? ")
+  }
+
+  // Setup the `beforeunload` event listener
+  setupBeforeUnloadListener = () => {
+      window.addEventListener("beforeunload", (ev) => {
+          ev.preventDefault();
+
+          ev.returnValue("are you sure you want to leave")
+          return this.doSomethingBeforeUnload();
+      });
+  };
+
+  componentDidMount() {
+      // Activate the event listener
+      this.setupBeforeUnloadListener();
+  }
 
 
 
@@ -49,7 +70,7 @@ class App extends React.Component {
     }else {
       return (
       <div>
-        <div className=""><Chatbox history={this.state.history} onMessage={this.updateHistory} /></div>
+        <div className=""><Chatbox history={this.state.history} onMessage={this.updateHistory} signOut={this.signout} /></div>
       </div>
       ); 
     }
