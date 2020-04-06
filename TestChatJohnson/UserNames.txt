@@ -11,5 +11,65 @@ Id: '5e689b8e566b33069dadda0f'
 jid_IM: '35d0036ab99a4f10b4e6e091f6fcd258@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
 
 User#3
+email: FrankDoe@mymail.sutd.edu.sg
+pw: IAmFrankDoes1!
+Id: '5e884d2f35c8367f99b96c8c' 
+jid_IM: "add054ae87b440ce8e6f88b26c95008c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#4
+email: JamesDoe@mymail.sutd.edu.sg
+pw: IAmJamesDoes1!
+Id: '5e884de835c8367f99b96c95' 
+jid_IM: "5fdf682b106642f9ad2d15cde5d29f95@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#5
+email: MaryDoe@mymail.sutd.edu.sg
+pw: IAmMaryDoes1!
+Id: '5e884e1135c8367f99b96c9e'
+jid_IM: "78ee9f7f7bf0431baf1c1394652897a1@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#6
+email: LisaDoe@mymail.sutd.edu.sg
+pw: IAmLisaDoes1!
+Id: '5e884ead35c8367f99b96cb0'
+jid_IM: "9193a68d71d54bbd99e902f3990e4702@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#7
+email: BobDoe@mymail.sutd.edu.sg
+pw: IAmBobDoes1!
+Id: '5e884ef335c8367f99b96cb9'
+jid_Im: "03790128347e4ad09f420fff68700422@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+
+Agents
+User#8
+email: MarkDoe@mymail.sutd.edu.sg
+pw: IAmMarkDoes1!
+Id: '5e884f4635c8367f99b96cc2'
+jid_IM: "3e7de348c8624d9994e6fc40da2698c0@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#9
+email: SarahDoe@mymail.sutd.edu.sg
+pw: IAmSarahDoes1!
+Id: '5e884fc235c8367f99b96ccb'
+jid_IM: "7bc6b252f7d74513a614a53e55a5e769@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#10
+email: SusanDoe@mymail.sutd.edu.sg
+pw: IAmSusanDoes1!
+Id: '5e88501e35c8367f99b96cd4'
+jid_Id: "2bca6f31481c4c4999770cb690c052aa@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#11
+email: PaulDoe@mymail.sutd.edu.sg
+pw: IAmPaulDoes1!
+Id: '5e88507b35c8367f99b96cef'
+jid_IM: "406ac509139f4b538186713141c5cc0d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+
+User#12
+
+
+User#
 email: josejohnson@mymail.sutd.edu.sg
+id: 5e4bf69fb4528b74a00c8e44
 jid_im: 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'

@@ -28,9 +28,9 @@ const getCurrentCustomers = (request, response) => {
     })
 }
 
-const getAvailableAgents = () => {
+const getAvailableAgents = (specs) => {
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM agents WHERE status = $1 ORDER BY timelastavailable ASC', [true], (error, results) => {
+        pool.query('SELECT * FROM agents WHERE (status = $1 AND querytype = $2) ORDER BY timelastavailable ASC', [true, specs], (error, results) => {
             if (error) {
                 return reject(error)
             }
@@ -87,12 +87,12 @@ const setCustomerAssignedAgent = (customerID, agentID) => {
     })
 }
 
-const addCustomerQuery = (username, querytype) => {
+const addCustomerQuery = (username, querytype, agentpair) => {
     return new Promise((resolve, reject) => {
         getCustomerfromUsername(username).then((result) => {
-            console.log('Result from getCustomer', result)
+            //console.log('Result from getCustomer', result)
             var timeNow = new Date()
-            pool.query('INSERT INTO customres (id, jid, username, querytype, querycreatedtime) VALUES ($1, $2, $3, $4, $5)', [result[0].id, result[0].jid, result[0].username, querytype, timeNow], (error, results) => {
+            pool.query('INSERT INTO customres (id, jid, username, querytype, assignedagent, querycreatedtime) VALUES ($1, $2, $3, $4, $5, $6)', [result[0].id, result[0].jid, result[0].username, querytype, agentpair, timeNow], (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -107,6 +107,17 @@ const addCustomerQuery = (username, querytype) => {
     })
 }
 
+const deleteCustomerQuery = (customerID) => {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM customres WHERE id = $1', [customerID], (error, result) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(result)
+        })
+    })
+}
+
 module.exports = {
     getCustomers,
     getCurrentCustomers,
@@ -115,7 +126,8 @@ module.exports = {
     getAvailableAgents,
     getCustomerQueries,
     updateAgentStatus,
-    setCustomerAssignedAgent
+    setCustomerAssignedAgent,
+    deleteCustomerQuery
     // getUserById,
     // createUser,
     // updateUser,
