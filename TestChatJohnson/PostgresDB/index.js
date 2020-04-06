@@ -24,10 +24,12 @@ app.get('/users', db.getCustomers)
 
 app.get('/customers', db.getCurrentCustomers)
 
-app.get('/login/:username', (req, res) => {
-    var username = req.body.username;
-    var password = req.body.password;
-    var queryType = req.body.queryType;
+app.post('/login/:username', (req, res) => {
+    let data = req.body
+    console.log(req.body)
+    let username = data.username;
+    let password = data.password;
+    let queryType = data.queryType;
     console.log(`Username: ${username} Password: ${password} QueryType: ${queryType}`);
 
     var chatPairs = {
@@ -61,6 +63,33 @@ app.get('/login/:username', (req, res) => {
                     agentQ.enqueue(result[i].id)
                     console.log('All the available agents', agentQ)
                 }
+
+                if (agentQ.isEmpty()) {
+                    console.log('No agent found')
+                    res.status(200).send(chatPairs)
+                    res.end()
+                }
+                else {
+                    chatPairs.customer = customerQ.dequeue()
+                    chatPairs.agent = agentQ.dequeue()
+                    chatPairs.success = "true"
+
+                    db.addCustomerQuery(username, queryType, chatPairs.agent).then((addresult) => {
+                        console.log('Query added successfully')
+                    }).catch((error) => {
+                        console.log('Query add unsuccessful')
+                        console.log(error)
+                    })
+
+                    db.updateAgentStatus(chatPairs.agent, false).then((result) => {
+                        console.log('Agent status update successful')
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+                    res.status(200).send(chatPairs)
+                    res.end()
+                }
+
             }, ((error) => {
                 console.log('Error getting available agents')
                 console.log(error)
@@ -90,62 +119,66 @@ app.get('/login/:username', (req, res) => {
         res.end();
     })
 
-    if (agentQ.isEmpty()) {
-        console.log('No agent found')
-        res.status(200).send(chatPairs)
-        res.end()
-    }
-    else {
-        chatPairs.customer = customerQ.dequeue()
-        chatPairs.agent = agentQ.dequeue()
-        chatPairs.success = "true"
+    // if (agentQ.isEmpty()) {
+    //     console.log('No agent found')
+    //     res.status(200).send(chatPairs)
+    //     res.end()
+    // }
+    // else {
+    //     chatPairs.customer = customerQ.dequeue()
+    //     chatPairs.agent = agentQ.dequeue()
+    //     chatPairs.success = "true"
 
-        db.addCustomerQuery(username, queryType, chatPairs.agent).then((addresult) => {
-            console.log('Query added successfully')
-        }).catch((error) => {
-            console.log('Query add unsuccessful')
-            console.log(error)
-        })
+    //     db.addCustomerQuery(username, queryType, chatPairs.agent).then((addresult) => {
+    //         console.log('Query added successfully')
+    //     }).catch((error) => {
+    //         console.log('Query add unsuccessful')
+    //         console.log(error)
+    //     })
 
-        db.updateAgentStatus(chatPairs.agent, false).then((result) => {
-            console.log('Agent status update successful')
-        }).catch((error) => {
-            console.log(error)
-        })
-
-        // db.setCustomerAssignedAgent(chatPairs.customer, chatPairs.agent).then((result) => {
-        //     console.log('AssignedAgent successfully updated')
-        // }).catch((error) => {
-        //     console.log(error)
-        // })
-
-        res.status(200).send(chatPairs)
-        res.end()
-    }
+    //     db.updateAgentStatus(chatPairs.agent, false).then((result) => {
+    //         console.log('Agent status update successful')
+    //     }).catch((error) => {
+    //         console.log(error)
+    //     })
+    //     res.status(200).send(chatPairs)
+    //     res.end()
+    // }
 
 })
 
 app.get('/signout/:username', (req, res) => {
     var username = req.body.username
-    db.getCustomerfromUsername(username).then((result) => {
+    db.getCustomerfromUsername(username).then((custresult) => {
 
-        db.updateAgentStatus(result[0].assignedagent, true).then((result) => {
+        db.updateAgentStatus(result[0].assignedagent, true).then((agentresult) => {
             console.log('Agent status update successfully')
+
+            db.deleteCustomerQuery(custresult[0].id).then((result) => {
+                console.log('Query successfully deleted')
+            }).catch((error) => {
+                console.log(error)
+            })
+
+
+            res.status(200).send({ 'success': 'signout successful' })
+            res.end()
+
         }).catch((error) => {
             console.log('Error when changing agent status')
             console.log(error)
         })
 
 
-        db.deleteCustomerQuery(result[0].id).then((result) => {
-            console.log('Query successfully deleted')
-        }).catch((error) => {
-            console.log(error)
-        })
+        // db.deleteCustomerQuery(result[0].id).then((result) => {
+        //     console.log('Query successfully deleted')
+        // }).catch((error) => {
+        //     console.log(error)
+        // })
 
 
-        res.status(200).send({ 'success': 'signout successful' })
-        res.end()
+        // res.status(200).send({ 'success': 'signout successful' })
+        // res.end()
     }).then((error) => {
         console.log(error)
     })
