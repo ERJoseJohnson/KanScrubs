@@ -47,7 +47,7 @@ class Login_n extends React.Component {
                     <div className="tc">
                 
                         <input
-                                className=""
+                                className="username"
                                 type="text"
                                 value={this.state.userName}
                                 onChange={event => this.setState({ userName: event.target.value })}
@@ -56,7 +56,7 @@ class Login_n extends React.Component {
                             />
                         <div className="pa2"/>
                         <input
-                                className=" "
+                                className="password"
                                 type="password"
                                 value={this.state.password}
                                 onChange={event => this.setState({ password: event.target.value })}
