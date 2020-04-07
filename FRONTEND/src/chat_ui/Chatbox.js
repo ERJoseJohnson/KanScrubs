@@ -36,7 +36,7 @@ class Chatbox extends React.Component {
         // Just created a file bound variable to use with the getData() method
         outgoingMessage = event.target[0].value;
         console.log("APSDOKAOPSDKPAOSKDP");
-        let jid = 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
+        let jid = this.props.agent; //'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
         let myContact = rainbowSDK.contacts.getContactByJID(jid);
         console.log(myContact);
         rainbowSDK.conversations.openConversationForContact(myContact).then((conversation) => {

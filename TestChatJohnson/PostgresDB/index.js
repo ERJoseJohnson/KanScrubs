@@ -26,7 +26,7 @@ app.get('/customers', db.getCurrentCustomers)
 
 app.post('/login/:username', (req, res) => {
     let data = req.body
-    console.log(req.body)
+    // console.log(req.body)
     let username = data.username;
     let password = data.password;
     let queryType = data.queryType;
@@ -40,27 +40,34 @@ app.post('/login/:username', (req, res) => {
     customerQ = new Queue()
     agentQ = new Queue()
 
-    db.getCustomerfromUsername(username).then((custresult) => {
-        //console.log('Query successfully added!!')
-        //console.log('Customer information', custresult[0])
+    console.log(chatPairs)
+
+    db.getCustomerfromCreds(username).then((custresult) => {
+        console.log('Customer information', custresult)
+
+        if (custresult.length == 0) {
+            res.status(400).send({ 'success': 'sigin unsuccessful' })
+            res.end()
+        }
+
         // Routing engine
         db.getCustomerQueries().then((queryresult) => {
-            //console.log('All queries', queryresult)
+            console.log('All queries', queryresult)
 
             for (i = 0; i < queryresult.length; i++) {
                 customerQ.enqueue(queryresult[i].id)
-                //console.log(customerQ.printQueue())
+                console.log(customerQ.printQueue())
             }
             customerQ.enqueue(custresult[0].id)
-            // console.log(customerQ)
+            console.log(customerQ)
 
 
             db.getAvailableAgents(queryType).then((result) => {
-                // console.log('Getting available agents')
+                console.log('Getting available agents')
                 console.log(result)
                 console.log(result.length)
                 for (i = 0; i < result.length; i++) {
-                    agentQ.enqueue(result[i].id)
+                    agentQ.enqueue(result[i].jid)
                     console.log('All the available agents', agentQ)
                 }
 
@@ -147,19 +154,26 @@ app.post('/login/:username', (req, res) => {
 
 })
 
-app.get('/signout/:username', (req, res) => {
+app.post('/signout/:username', (req, res) => {
+    // console.log(req)
     var username = req.body.username
+    console.log(username)
     db.getCustomerfromUsername(username).then((custresult) => {
-
-        db.updateAgentStatus(result[0].assignedagent, true).then((agentresult) => {
+        console.log(custresult)
+        if (custresult.length == 0) {
+            res.status(400).send({ 'success': 'signout unsuccessful' })
+            res.end()
+        }
+        db.updateAgentStatus(custresult[0].assignedagent, true).then((agentresult) => {
             console.log('Agent status update successfully')
 
             db.deleteCustomerQuery(custresult[0].id).then((result) => {
                 console.log('Query successfully deleted')
             }).catch((error) => {
                 console.log(error)
+                res.status(400).send({ 'success': 'signout unsuccessful' })
+                res.end()
             })
-
 
             res.status(200).send({ 'success': 'signout successful' })
             res.end()
@@ -167,6 +181,8 @@ app.get('/signout/:username', (req, res) => {
         }).catch((error) => {
             console.log('Error when changing agent status')
             console.log(error)
+            res.status(400).send({ 'success': 'signout unsuccessful' })
+            res.end()
         })
 
 
@@ -181,6 +197,8 @@ app.get('/signout/:username', (req, res) => {
         // res.end()
     }).then((error) => {
         console.log(error)
+        res.status(200).send({ 'success': 'signout unsuccessful' })
+        res.end()
     })
 })
 

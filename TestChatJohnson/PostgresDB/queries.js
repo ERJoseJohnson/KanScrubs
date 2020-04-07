@@ -51,7 +51,7 @@ const getCustomerQueries = () => {
     })
 }
 
-const getCustomerfromUsername = (username) => {
+const getCustomerfromCreds = (username) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM customercreds WHERE username = $1', [username], (error, results) => {
             if (error) {
@@ -63,9 +63,21 @@ const getCustomerfromUsername = (username) => {
     })
 }
 
-const updateAgentStatus = (agentID, status) => {
+const getCustomerfromUsername = (username) => {
     return new Promise((resolve, reject) => {
-        pool.query('UPDATE agents SET status = $1 WHERE id = $2', [status, agentID], (error, results) => {
+        pool.query('SELECT * FROM customres WHERE username = $1', [username], (error, results) => {
+            if (error) {
+                return reject(error)
+            }
+            resolve(results.rows)
+        })
+
+    })
+}
+
+const updateAgentStatus = (agentJID, status) => {
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE agents SET status = $1 WHERE jid = $2', [status, agentJID], (error, results) => {
             if (error) {
                 return reject(error)
             }
@@ -89,7 +101,7 @@ const setCustomerAssignedAgent = (customerID, agentID) => {
 
 const addCustomerQuery = (username, querytype, agentpair) => {
     return new Promise((resolve, reject) => {
-        getCustomerfromUsername(username).then((result) => {
+        getCustomerfromCreds(username).then((result) => {
             //console.log('Result from getCustomer', result)
             var timeNow = new Date()
             pool.query('INSERT INTO customres (id, jid, username, querytype, assignedagent, querycreatedtime) VALUES ($1, $2, $3, $4, $5, $6)', [result[0].id, result[0].jid, result[0].username, querytype, agentpair, timeNow], (error, results) => {
@@ -127,7 +139,8 @@ module.exports = {
     getCustomerQueries,
     updateAgentStatus,
     setCustomerAssignedAgent,
-    deleteCustomerQuery
+    deleteCustomerQuery,
+    getCustomerfromCreds
     // getUserById,
     // createUser,
     // updateUser,

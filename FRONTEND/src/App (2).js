@@ -21,9 +21,9 @@ class App extends React.Component {
       password: "",
       queryType: "",
       message: "",
+      agentJID: "",
+      customerID: ""
     }
-
-
   }
 
   // init rainbow sdk and set up listening
@@ -40,7 +40,7 @@ class App extends React.Component {
     rainbowSDK.connection.signin(myRainbowLogin, myRainbowPassword)
       .then(function (account) {
         // Successfully signed to Rainbow and the SDK is started completely. Rainbow data can be retrieved.
-        var self = this;
+
         // let onNewMessageReceived = function (event) {
 
         //   let message = event.detail.message;
@@ -110,7 +110,7 @@ class App extends React.Component {
     // new_history.push({ user: this.state.userName, message: msg });
     // console.log(new_history);
     // this.setState({ history: new_history });
-    this.setState({ loggedin: 1 });
+    // this.setState({ loggedin: 1 });
     // this.render();
     // Listen when the SDK is ready
     // document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady)
@@ -169,22 +169,34 @@ class App extends React.Component {
       password: password,
       queryType: queryType
     }
-    // console.log(customerCreds);
+    console.log('Customer cred', customerCreds);
     let route = 'http://localhost:3001/login/'.concat(username);
     console.log(route);
 
-    let stateOfReq = "false";
+    let stateOfReq
     // while (stateOfReq == "false") {
+    // console.log("In the while loop")
+    axios.post(route, customerCreds)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ customerID: response.data.customer });
+        this.setState({ agentJID: response.data.agent });
+        stateOfReq = response.data.success
+        let customerID = response.data.customer
+        let agentJID = response.data.agent
 
-    //   axios.post(route, customerCreds)
-    //     .then((response) => {
-    //       console.log(response.data);
-    //       stateOfReq = response.data.success
-    //       let customerID = response.data.customer
-    //       let agentID = response.data.agent
-    //     }, (error) => {
-    //       console.log(error);
-    //     });
+      }, (error) => {
+        console.log(error);
+      });
+
+    if (stateOfReq == 'false') {
+      this.setState({ loggedin: 0 });
+      window.location.reload(true);
+    }
+    else {
+      this.setState({ loggedin: 1 });
+
+    }
     // }
 
     document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady);
@@ -212,7 +224,21 @@ class App extends React.Component {
   // }
 
   signout = () => {
+    // const customerCreds = {
+    //   username: username,
+    //   password: password,
+    //   queryType: queryType
+    // }
+    let route = 'http://localhost:3001/signout/' + this.state.userName
+    axios.post(route, { username: this.state.userName })
+      .then((response) => {
+        console.log(response.data)
+      }, (error) => {
+        console.log(error);
+      });
+
     window.location.reload(true);
+
   }
 
   // Things to do before unloading/closing the tab
@@ -272,7 +298,7 @@ class App extends React.Component {
     } else {
       return (
         <div>
-          <div className=""><Chatbox history={this.state.history} onMessage={this.updateHistory} signOut={this.signout} /></div>
+          <div className=""><Chatbox history={this.state.history} onMessage={this.updateHistory} signOut={this.signout} agent={this.state.agentJID} /></div>
         </div>
       );
     }
