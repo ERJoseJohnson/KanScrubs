@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'SEGA LOGO FONT';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SEGA LOGO FONT'), url('SEGA.woff') format('woff');
+  }
+  
+  h1{
+      font-family: "SEGA LOGO FONT";
+      font-weight: 202;
+      color: #0ccac4;
+  }
+
+  h2{
+    
+    color: #0ccac4;
+} 
+
+.FormInput{
+  display: flex ; 
+  flex-direction: row;
+  text-align: center;
+}
+
+.chatbox{
+  height: 400px ; 
+  overflow-y: scroll;
+  
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}

@@ -1,0 +1,63 @@
+.rootes{
+    background-image: url("./call_center.jpg");
+    opacity: 0.8;
+    background-size: cover;
+    height: 100vh;
+    padding-top: 10%;
+    padding-right: 15%;
+    padding-left:15% ; 
+}
+
+input {
+    
+    background-color: transparent;
+    border: 0px solid;
+    border-bottom: rgb(48, 25, 70) 2px solid;
+    width: 40% ;
+    color:rgb(26, 22, 43);
+}
+
+select {
+    background-color: transparent;
+    border: 0px solid;
+    border-bottom: rgb(48, 25, 70) 2px solid;
+    width: 40% ; 
+    color:rgb(26, 22, 43);
+}
+
+button {
+    background-color : rgb(40, 75, 128);
+    border: 0px solid;
+    width : 25% ; 
+    color:white;
+    height: 25px;
+}
+
+.loginBox{
+    position: relative; 
+    /* padding : 50 px; */
+    background: rgba(255, 255, 255, 0.3);
+    /* padding-top: 15%; */
+    width: cover;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color:rgb(26, 22, 43);
+    opacity: 1; /* Firefox */
+  }
+
+.head1{
+    font-style: oblique;
+    font-family:  Helvetica;
+    font-weight: 700;
+    font-size: large;
+    color : rgb(3, 9, 44) ; 
+}
+
+.head2{
+    font-style: normal;
+    font-family:  Arial;
+    font-weight: 500;
+    font-size: medium;
+    color : black ; 
+}
