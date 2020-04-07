@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import "./Login_n.css" ; 
+import "./Login_n.css";
 
 
 class Login_n extends React.Component {
@@ -24,13 +24,13 @@ class Login_n extends React.Component {
         //         console.log(response.data);
         //         console.log("Environment to set up", response.data.environment);
         //     })
-        if ((this.state.userName == "") || (this.state.password == "")){
-            window.alert("Please fill up login details. \n We wish you a pleasant experience.") ; 
+        if ((this.state.userName == "") || (this.state.password == "")) {
+            window.alert("Please fill up login details. \n We wish you a pleasant experience.");
         } else {
-            console.log(this.state.userName) ; 
-            console.log(this.state.password) ; 
-            console.log(this.state.queryType) ; 
-            this.props.onSubmit() ; 
+            console.log(this.state.userName);
+            console.log(this.state.password);
+            console.log(this.state.queryType);
+            this.props.onSubmit(this.state.userName, this.state.password, this.state.queryType);
         }
         // console.log("logged in ") ; 
     };
@@ -39,52 +39,52 @@ class Login_n extends React.Component {
 
         return (
             <div className="rootes  pl4 pr4 ">
-                
+
                 <div className="loginBox  pl4 pb4 pr4 ">
                     <p className="head1 pb3 pa4">ALCATEL</p>
                     <p className="head2 tc pb3">CUSTOMER ENQUIRY</p>
-                    
-                    <div className="tc">
-                
-                        <input
-                                className="username"
-                                type="text"
-                                value={this.state.userName}
-                                onChange={event => this.setState({ userName: event.target.value })}
-                                placeholder="  Username"
-                                required
-                            />
-                        <div className="pa2"/>
-                        <input
-                                className="password"
-                                type="password"
-                                value={this.state.password}
-                                onChange={event => this.setState({ password: event.target.value })}
-                                placeholder="  Password"
-                                required
-                            />
-                        <div className="pa2"/>
-                        <select
-                                onChange={this.handleChange}
-                                defaultValue={this.state.queryType}
-                                placeholder={"Query Type"}
-                                className=""
-                            >
-                                <option value="General" >  General Query</option>
-                                <option value="Mortgage" className="o-20">  Mortgage</option>
-                                <option value="Card">  Card</option>
-                                <option value="Credit">  Credit</option>
-                                <option value="Insurance">  Insurance</option>
 
-                            </select>
-                        <div className="pa3"/>
+                    <div className="tc">
+
+                        <input
+                            className="username"
+                            type="text"
+                            value={this.state.userName}
+                            onChange={event => this.setState({ userName: event.target.value })}
+                            placeholder="  Username"
+                            required
+                        />
+                        <div className="pa2" />
+                        <input
+                            className="password"
+                            type="password"
+                            value={this.state.password}
+                            onChange={event => this.setState({ password: event.target.value })}
+                            placeholder="  Password"
+                            required
+                        />
+                        <div className="pa2" />
+                        <select
+                            onChange={this.handleChange}
+                            defaultValue={this.state.queryType}
+                            placeholder={"Query Type"}
+                            className=""
+                        >
+                            <option value="General" >  General Query</option>
+                            <option value="Mortgage" className="o-20">  Mortgage</option>
+                            <option value="Card">  Card</option>
+                            <option value="Credit">  Credit</option>
+                            <option value="Insurance">  Insurance</option>
+
+                        </select>
+                        <div className="pa3" />
                         <button className="grow" onClick={this.sendLoginDetails}>LOGIN</button>
-                    
+
                     </div>
-                
+
                 </div>
-                
-                
+
+
 
 
 

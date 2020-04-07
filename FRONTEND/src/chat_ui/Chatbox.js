@@ -1,9 +1,10 @@
 import React from "react";
 import ChatHistory from "./ChatHistory";
 import FormInp from "./FormInp";
-import "./chat.css" ; 
+import "./chat.css";
 import send from "./rainbow/Send";
 import axios from "axios";
+import rainbowSDK from 'rainbow-web-sdk';
 
 var outgoingMessage;
 var incomingMessage = '';
@@ -29,9 +30,18 @@ class Chatbox extends React.Component {
 
     updateHistory = (event) => {
         event.preventDefault();
-        var new_history = this.state.history;
+        var new_history = this.props.history;
         // Just created a file bound variable to use with the getData() method
         outgoingMessage = event.target[0].value;
+        console.log("APSDOKAOPSDKPAOSKDP");
+        let jid = 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
+        let myContact = rainbowSDK.contacts.getContactByJID(jid);
+        console.log(myContact);
+        rainbowSDK.conversations.openConversationForContact(myContact).then((conversation) => {
+            rainbowSDK.im.sendMessageToConversation(conversation, outgoingMessage);
+        }).catch((err) => {
+            console.log(err)
+        })
         new_history.push({ user: "customer1", message: outgoingMessage });
         super.setState({ history: new_history });
         this.setState({ companyName: 0 })
@@ -46,14 +56,14 @@ class Chatbox extends React.Component {
         // }
 
         //http://localhost:8080/customerMessage
-        axios.post('http://10.12.84.5:8080/customerMessage', {
-            incomingMessage: outgoingMessage
-        })
-            .then((response) => {
-                console.log(response);
-            }, (error) => {
-                console.log(error);
-            });
+        // axios.post('http://10.12.84.5:8080/customerMessage', {
+        //     incomingMessage: outgoingMessage
+        // })
+        //     .then((response) => {
+        //         console.log(response);
+        //     }, (error) => {
+        //         console.log(error);
+        //     });
         // send a post request 
 
         // axios.get('http://localhost:8080/adminResponse', { success: "Received admin message" })
@@ -107,8 +117,8 @@ class Chatbox extends React.Component {
                 </div>
                 <div className="chatBox pb2">
                     <p className="head1 pb1 pa4 tc">ALCATEL</p>
-                    <div className="chatHis"><ChatHistory history={this.state.history} /></div>
-                    <FormInp onSubmit={this.updateHistory} history={this.state.history} />
+                    <div className="chatHis"><ChatHistory history={this.props.history} /></div>
+                    <FormInp onSubmit={this.updateHistory} history={this.props.history} />
 
                 </div>
             </div>
@@ -141,7 +151,7 @@ class Chatbox extends React.Component {
 //     super.setState({ history: new_history });
 //     console.log("Updated admind messages");
 // }
-export default Chatbox; 
+export default Chatbox;
 
 
 {/* <div className="ba bw2 pa2 bg-light-yellow br4" >
