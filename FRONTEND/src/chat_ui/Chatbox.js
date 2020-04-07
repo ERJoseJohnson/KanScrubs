@@ -44,7 +44,7 @@ class Chatbox extends React.Component {
         }).catch((err) => {
             console.log(err)
         })
-        new_history.push({ user: this.state.userName, message: outgoingMessage });
+        new_history.push({ user: "You", message: outgoingMessage });
         super.setState({ history: new_history });
         this.setState({ companyName: 0 })
         // Sedning new message as POST request to server

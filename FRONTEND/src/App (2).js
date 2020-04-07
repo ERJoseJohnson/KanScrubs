@@ -16,7 +16,7 @@ class App extends React.Component {
     this.state = {
       stored_value: "Your Message will appear hear",
       loggedin: 0,
-      history: [{ user: "customer1", message: "asdfasdf" }],
+      history: [{ user: "Agent", message: "How may I help you? 😊" }],
       userName: "",
       password: "",
       queryType: "",
@@ -116,29 +116,29 @@ class App extends React.Component {
     // document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady)
   };
 
-  receiveMessage = function (event) {
-    // let onNewMessageReceived = function (event) {
+  // receiveMessage = function (event) {
+  //   // let onNewMessageReceived = function (event) {
 
-    let message = event.detail.message;
-    let conversation = event.detail.conversation;
-    let messageContent = "";
+  //   let message = event.detail.message;
+  //   let conversation = event.detail.conversation;
+  //   let messageContent = "";
 
-    console.log(message)
+  //   console.log(message)
 
-    // Acknowledge it
-    rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
+  //   // Acknowledge it
+  //   rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
 
-    // Text message received
-    messageContent = message.data;
-    console.log(messageContent)
+  //   // Text message received
+  //   messageContent = message.data;
+  //   console.log(messageContent)
 
-    var new_history = this.state.history;
-    new_history.push({ user: "admin", message: messageContent });
-    this.setState({ history: new_history });
-    // };
+  //   var new_history = this.state.history;
+  //   new_history.push({ user: "Agent", message: messageContent });
+  //   this.setState({ history: new_history });
+  //   // };
 
-    document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived)
-  }
+  //   document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived)
+  // }
   onLoaded = () => {
     console.log('[Hello World] :: On SDK Loaded !');
 
@@ -199,17 +199,17 @@ class App extends React.Component {
     console.log("logged in ")
   };
 
-  compareMessage = () => {
-    if (msg != prevMessage) {
-      console.log("I am here ******************************************")
-      var new_history = this.state.history;
-      new_history.push({ user: this.state.userName, message: msg });
-      console.log(new_history);
-      this.setState({ history: new_history });
-      prevMessage = msg
-      this.render()
-    }
-  }
+  // compareMessage = () => {
+  //   if (msg != prevMessage) {
+  //     console.log("I am here ******************************************")
+  //     var new_history = this.state.history;
+  //     new_history.push({ user: this.state.userName, message: msg });
+  //     console.log(new_history);
+  //     this.setState({ history: new_history });
+  //     prevMessage = msg
+  //     this.render()
+  //   }
+  // }
 
   signout = () => {
     window.location.reload(true);
@@ -248,7 +248,7 @@ class App extends React.Component {
     msg = messageContent;
     console.log(msg)
     var new_history = this.state.history;
-    new_history.push({ user: "admin", message: messageContent });
+    new_history.push({ user: "Agent", message: messageContent });
     this.setState({ history: new_history });
   };
 
@@ -281,7 +281,7 @@ class App extends React.Component {
 
 
   render() {
-    this.compareMessage()
+    //this.compareMessage()
     return (
 
       this.test()
