@@ -6,7 +6,8 @@ import Login_n from "./login/Login_n";
 import axios from "axios";
 import rainbowSDK from 'rainbow-web-sdk';
 
-
+let msg;
+let prevMessage;
 
 class App extends React.Component {
   constructor() {
@@ -30,7 +31,7 @@ class App extends React.Component {
 
     var myRainbowLogin = this.state.userName; //"JohnDoe@mymail.sutd.edu.sg";       // Replace by your login
     var myRainbowPassword = this.state.password; //"IAmJohnDoes1!"; // Replace by your password
-    var msg;
+
     console.log('this is the username', this.state.userName)
     console.log('this is the password', this.state.password)
     console.log(myRainbowLogin)
@@ -39,59 +40,63 @@ class App extends React.Component {
     rainbowSDK.connection.signin(myRainbowLogin, myRainbowPassword)
       .then(function (account) {
         // Successfully signed to Rainbow and the SDK is started completely. Rainbow data can be retrieved.
-        let onNewMessageReceived = function (event) {
+        var self = this;
+        // let onNewMessageReceived = function (event) {
 
-          let message = event.detail.message;
-          let conversation = event.detail.conversation;
-          let messageContent = "";
+        //   let message = event.detail.message;
+        //   let conversation = event.detail.conversation;
+        //   let messageContent = "";
 
-          console.log(message)
+        //   console.log(message)
 
-          // Acknowledge it
-          rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
+        //   // Acknowledge it
+        //   rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
 
-          // Text message received
-          messageContent = message.data;
-          console.log(messageContent)
-          msg = messageContent;
+        //   // Text message received
+        //   messageContent = message.data;
+        //   console.log(messageContent)
+        //   msg = messageContent;
+        //   console.log(msg)
 
 
-          // var new_history = this.state.history;
-          // new_history.push({ user: "admin", message: messageContent });
-          // this.setState({ history: new_history });
 
-          // Send an answer
-          // rainbowSDK.im.sendMessageToConversation(conversation, messageContent + " read!");
+        // var new_history = this.state.history;
+        // new_history.push({ user: "admin", message: messageContent });
+        // this.setState({ history: new_history });
 
-          // console.log("APSDOKAOPSDKPAOSKDP");
-          // let jid = "3ef04d45a9784a61bc1868a07ff9cf6d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
-          // // let myContact = rainbowSDK.contacts.getContactByJID("85f5342e76c44c219eeff89d2ee49483@sandbox-all-in-one-rbx-prod-1.rainbow.sbg");
-          // // console.log(myContact);
-          // let myContact;
-          // rainbowSDK.contacts.searchByJid(jid).then((contact) => {
-          //   rainbowSDK.contacts.addToNetwork(contact).then((theContact) => {
-          //     myContact = theContact
+        // Send an answer
+        // rainbowSDK.im.sendMessageToConversation(conversation, messageContent + " read!");
 
-          //   }).then((err) => {
-          //     console.log(err);
+        // console.log("APSDOKAOPSDKPAOSKDP");
+        // let jid = "3ef04d45a9784a61bc1868a07ff9cf6d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
+        // // let myContact = rainbowSDK.contacts.getContactByJID("85f5342e76c44c219eeff89d2ee49483@sandbox-all-in-one-rbx-prod-1.rainbow.sbg");
+        // // console.log(myContact);
+        // let myContact;
+        // rainbowSDK.contacts.searchByJid(jid).then((contact) => {
+        //   rainbowSDK.contacts.addToNetwork(contact).then((theContact) => {
+        //     myContact = theContact
 
-          //   })
-          // }).then((err) => {
-          //   console.log(err)
-          //   rainbowSDK.conversations.openConversationForContact(myContact).then((conversation) => {
-          //     rainbowSDK.im.sendMessageToConversation(conversation, "It works!");
-          //   }).catch((err) => {
-          //     console.log(err)
-          //   })
-          // })
-          console.log("I am here ******************************************")
-          var new_history = this.state.history;
-          new_history.push({ user: this.state.userName, message: msg });
-          console.log(new_history);
-          this.setState({ history: new_history });
+        //   }).then((err) => {
+        //     console.log(err);
 
-        };
-        document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, onNewMessageReceived)
+        //   })
+        // }).then((err) => {
+        //   console.log(err)
+        //   rainbowSDK.conversations.openConversationForContact(myContact).then((conversation) => {
+        //     rainbowSDK.im.sendMessageToConversation(conversation, "It works!");
+        //   }).catch((err) => {
+        //     console.log(err)
+        //   })
+        // })
+        // console.log("I am here ******************************************")
+        // console.log(self.state)
+        // var new_history = self.state.history;
+        // new_history.push({ user: self.state.userName, message: msg });
+        // console.log(new_history);
+        // self.setState({ history: new_history });
+
+        // };
+        // document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, onNewMessageReceived)
 
 
       })
@@ -194,6 +199,18 @@ class App extends React.Component {
     console.log("logged in ")
   };
 
+  compareMessage = () => {
+    if (msg != prevMessage) {
+      console.log("I am here ******************************************")
+      var new_history = this.state.history;
+      new_history.push({ user: this.state.userName, message: msg });
+      console.log(new_history);
+      this.setState({ history: new_history });
+      prevMessage = msg
+      this.render()
+    }
+  }
+
   signout = () => {
     window.location.reload(true);
   }
@@ -214,9 +231,32 @@ class App extends React.Component {
     });
   };
 
+  onNewMessageReceived = (event) => {
+
+    let message = event.detail.message;
+    let conversation = event.detail.conversation;
+    let messageContent = "";
+
+    console.log(message)
+
+    // Acknowledge it
+    rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
+
+    // Text message received
+    messageContent = message.data;
+    console.log(messageContent)
+    msg = messageContent;
+    console.log(msg)
+    var new_history = this.state.history;
+    new_history.push({ user: "admin", message: messageContent });
+    this.setState({ history: new_history });
+  };
+
   componentDidMount() {
     // Activate the event listener
     this.setupBeforeUnloadListener();
+    document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived)
+
   }
 
 
@@ -241,6 +281,7 @@ class App extends React.Component {
 
 
   render() {
+    this.compareMessage()
     return (
 
       this.test()
