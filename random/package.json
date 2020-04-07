@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "rainbow-node-sdk": "^1.68.0",
+    "rainbow-web-sdk": "^1.69.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",

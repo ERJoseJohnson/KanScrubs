@@ -105,6 +105,8 @@ instantiatingandStart(asdf);
 
 // Dictionary is to keep track who is logged to which SDK.
 dictionary = {'Spongebob': "RainbowSDKSpongebob", 'Krabs': "RainbowSDKKrabs", 'Sandy': "RainbowSDKSandy" };
+
+// dictionary = {};
 dictionary[logindict["user"]] = asdf;
 // console.log(dictionary);
 
@@ -134,6 +136,7 @@ while (true) {
     });
     }
 }
+
 
 
 
@@ -172,6 +175,7 @@ standard_input.on('data', function (data) {
     {
         // Print user input in console.
         console.log('User Input Data : ' + data);
-        rainbowSDK.im.sendMessageToJid(data, "767c85aa34f24257936f224d3c6f266d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg");
+        rainbowSDKPatrick.im.sendMessageToJid(data, "767c85aa34f24257936f224d3c6f266d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg");
+
     }
 });
