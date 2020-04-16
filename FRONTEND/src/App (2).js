@@ -5,6 +5,7 @@ import "tachyons";
 import Login_n from "./login/Login_n";
 import axios from "axios";
 import rainbowSDK from 'rainbow-web-sdk';
+import MessageBox from "./intermediate/MessageBox";
 
 let msg;
 let prevMessage;
@@ -22,7 +23,11 @@ class App extends React.Component {
       queryType: "",
       message: "",
       agentJID: "",
-      customerID: ""
+      customerID: "",
+      message: " ", //"You have been loggedin successfully",
+      route: null,
+      customerCreds: null,
+      stateOfReq: null,
     }
   }
 
@@ -102,8 +107,12 @@ class App extends React.Component {
       })
       .catch(function (err) {
         // An error occurs (e.g. bad credentials). Application could be informed that sign in has failed
+        //this.setState({ message: "You entered the wrong credentials" });
+        window.location.reload(true);
+        window.alert("You have entered invalid credentials. Please try again.")
         console.log("ERROR");
         console.log(err)
+
       });
     // console.log("I am here ******************************************")
     // var new_history = this.state.history;
@@ -173,7 +182,7 @@ class App extends React.Component {
     let route = 'http://localhost:3001/login/'.concat(username);
     console.log(route);
 
-    let stateOfReq
+    let stateOfReq = "false";
     // while (stateOfReq == "false") {
     // console.log("In the while loop")
     axios.post(route, customerCreds)
@@ -188,14 +197,24 @@ class App extends React.Component {
       }, (error) => {
         console.log(error);
       });
-
+    console.log(stateOfReq);
+    console.log("#############################################");
+    this.setState({ stateOfReq: stateOfReq });
+    this.setState({ customerCreds: customerCreds });
+    this.setState({ route: route });
     if (stateOfReq == 'false') {
-      this.setState({ loggedin: 0 });
-      window.location.reload(true);
-    }
-    else {
-      this.setState({ loggedin: 1 });
 
+      this.setState({ message: "The credentials you entered were wrong ! Please reload and try again" })
+      this.setState({ loggedin: 1 });
+      this.render();
+      this.wait(stateOfReq, route, customerCreds);
+      //this.setState({ loggedin: 2 });
+      //window.location.reload(true);
+    }
+    else if (stateOfReq == 'true') {
+      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+      this.setState({ loggedin: 2 }); // changed
+      //this.setState({loggedin : 1})
     }
     // }
 
@@ -286,16 +305,45 @@ class App extends React.Component {
   }
 
 
+  wait = async (stat, route, customerCreds) => {
+    let stateOfReq = stat;
+    //while (stateOfReq != 'true') {
+    console.log(stateOfReq);
+    axios.post(route, customerCreds)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ customerID: response.data.customer });
+        this.setState({ agentJID: response.data.agent });
+        stateOfReq = response.data.success
+        let customerID = response.data.customer
+        let agentJID = response.data.agent
 
+      }, (error) => {
+        console.log(error);
+      });
+    if (stateOfReq == 'true') {
+      this.setState({ loggedin: 2 });
+    }
+    // this.render() ; 
+    //}
+  }
   test = () => {
     if (this.state.loggedin == 0) {
       return (
         <div>
-          <p className="tc">{this.state.message}</p>
+
           <Login_n userInfo={this.state} onSubmit={this.login} />
         </div>
       );
-    } else {
+    } else if (this.state.loggedin == 1) {
+      //console.log("************************");
+      return (
+        <div>
+          <MessageBox message={this.state.message} />
+        </div>
+      );
+    }
+    else if (this.state.loggedin == 2) {
       return (
         <div>
           <div className=""><Chatbox history={this.state.history} onMessage={this.updateHistory} signOut={this.signout} agent={this.state.agentJID} /></div>
@@ -308,6 +356,10 @@ class App extends React.Component {
 
   render() {
     //this.compareMessage()
+    if (this.state.loggedin == 1 && this.state.route != null && this.state.customerCreds != null && this.state.stateOfReq != null) {
+      this.wait(this.state.stateOfReq, this.state.route, this.state.customerCreds);
+
+    }
     return (
 
       this.test()

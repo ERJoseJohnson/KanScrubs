@@ -69,7 +69,8 @@ jid_IM: "406ac509139f4b538186713141c5cc0d@sandbox-all-in-one-rbx-prod-1.rainbow.
 User#12
 
 
-User#
+User# main
 email: josejohnson@mymail.sutd.edu.sg
+password: 7f*}3K]mQg!3
 id: 5e4bf69fb4528b74a00c8e44
 jid_im: 'e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg'
