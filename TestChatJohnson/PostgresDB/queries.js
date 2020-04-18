@@ -67,8 +67,11 @@ const getCustomerfromUsername = (username) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM customres WHERE username = $1', [username], (error, results) => {
             if (error) {
+                // console.log(error)
+                // console.log('returning error')
                 return reject(error)
             }
+            // console.log('returning right results')
             resolve(results.rows)
         })
 
