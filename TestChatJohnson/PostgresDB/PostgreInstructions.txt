@@ -1,0 +1,13 @@
+// To sign in, password on phone
+psql -U johnson -d postgres
+
+// To list all the databases that are available
+\list
+
+// To connect to a specific database
+\c rainbowchat
+
+// To list all the tables that are available
+\dt
+
+//
