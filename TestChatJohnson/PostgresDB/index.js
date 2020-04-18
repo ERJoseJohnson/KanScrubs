@@ -32,6 +32,7 @@ app.post('/login/:username', (req, res) => {
     let password = data.password;
     let queryType = data.queryType;
     // console.log(`Username: ${username} Password: ${password} QueryType: ${queryType}`);
+    // console.log(`Username: ${username1} Password: ${password1} QueryType: ${queryType1}`);
 
     var chatPairs = {
         "success": "false",
@@ -44,7 +45,7 @@ app.post('/login/:username', (req, res) => {
     // console.log(chatPairs)
 
     db.getCustomerfromCreds(username).then((custresult) => {
-        // console.log('Customer information', custresult)
+        console.log('Customer information', custresult)
 
         if (custresult.length == 0) {
             res.status(400).send({ 'success': 'sigin unsuccessful' })

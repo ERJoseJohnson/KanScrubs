@@ -53,6 +53,7 @@ const getCustomerQueries = () => {
 
 const getCustomerfromCreds = (username) => {
     return new Promise((resolve, reject) => {
+        console.log(username)
         pool.query('SELECT * FROM customercreds WHERE username = $1', [username], (error, results) => {
             if (error) {
                 return reject(error)
