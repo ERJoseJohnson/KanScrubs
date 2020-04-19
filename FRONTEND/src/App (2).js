@@ -43,6 +43,7 @@ class App extends React.Component {
     console.log(myRainbowPassword)
     // The SDK for Web is ready to be used, so you can sign in
     rainbowSDK.connection.signin(myRainbowLogin, myRainbowPassword)
+    
       .then(function (account) {
         // Successfully signed to Rainbow and the SDK is started completely. Rainbow data can be retrieved.
 
@@ -167,7 +168,12 @@ class App extends React.Component {
   };
 
   login = (username, password, queryType) => {
-    console.log(username, "*********************************")
+    //console.log(username, "*********************************")
+    if (username.length > 25 || password.length > 25 || username.includes("'")){
+      window.alert("You have entered an invalid username !") ; 
+      window.location.reload() ; 
+      return ; 
+    }
     this.state.userName = username;
     //this.setState({ userName: username });
     this.setState({ password: password });
@@ -219,7 +225,7 @@ class App extends React.Component {
     // }
 
     document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady);
-
+    
     document.addEventListener(rainbowSDK.RAINBOW_ONLOADED, this.onLoaded);
     rainbowSDK.start();
     rainbowSDK.load();
@@ -248,6 +254,11 @@ class App extends React.Component {
     //   password: password,
     //   queryType: queryType
     // }
+    if (this.userName == ""){
+      window.location.reload(true);
+      return ;
+      
+    }
     let route = 'http://localhost:3001/signout/' + this.state.userName
     axios.post(route, { username: this.state.userName })
       .then((response) => {
@@ -300,7 +311,8 @@ class App extends React.Component {
   componentDidMount() {
     // Activate the event listener
     this.setupBeforeUnloadListener();
-    document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived)
+    document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived) ; 
+    document.addEventListener(rainbowSDK.connection.RAINBOW_ONCONNECTIONSTATECHANGED, this.signout) ; 
 
   }
 
