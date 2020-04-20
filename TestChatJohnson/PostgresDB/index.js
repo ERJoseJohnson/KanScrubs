@@ -31,7 +31,7 @@ app.post('/login/:username', (req, res) => {
     let username = data.username;
     let password = data.password;
     let queryType = data.queryType;
-    // console.log(`Username: ${username} Password: ${password} QueryType: ${queryType}`);
+    console.log(`Username: ${username} Password: ${password} QueryType: ${queryType}`);
     // console.log(`Username: ${username1} Password: ${password1} QueryType: ${queryType1}`);
 
     var chatPairs = {

@@ -18,9 +18,9 @@
 < Content-Type: application/json; charset=utf-8
 < Content-Length: 48
 < ETag: W/"30-qSbOh6RaupbFHWAPohCVnsAtpQA"
-< Date: Sat, 18 Apr 2020 13:19:22 GMT
+< Date: Mon, 20 Apr 2020 13:21:31 GMT
 < Connection: keep-alive
 < 
 { [48 bytes data]
-100   138  100    48  100    90     48     90  0:00:01 --:--:--  0:00:01  2936
+100   138  100    48  100    90     48     90  0:00:01 --:--:--  0:00:01  1104
 * Connection #0 to host localhost left intact

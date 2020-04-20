@@ -1,26 +1,0 @@
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1...
-* TCP_NODELAY set
-* Connected to localhost (::1) port 3001 (#0)
-> POST /login/101OR11 HTTP/1.1
-> Host: localhost:3001
-> User-Agent: curl/7.55.1
-> Accept: */*
-> Content-Type: application/json
-> Content-Length: 67
-> 
-} [67 bytes data]
-* upload completely sent off: 67 out of 67 bytes
-< HTTP/1.1 400 Bad Request
-< X-Powered-By: Express
-< Access-Control-Allow-Origin: *
-< Content-Type: application/json; charset=utf-8
-< Content-Length: 32
-< ETag: W/"20-lZ0WBHoRzJ2+uWZOLBct1Qk3qEA"
-< Date: Sat, 18 Apr 2020 12:44:21 GMT
-< Connection: keep-alive
-< 
-{ [32 bytes data]
-100    99  100    32  100    67     32     67  0:00:01 --:--:--  0:00:01  3093
-* Connection #0 to host localhost left intact

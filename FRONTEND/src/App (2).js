@@ -43,7 +43,7 @@ class App extends React.Component {
     console.log(myRainbowPassword)
     // The SDK for Web is ready to be used, so you can sign in
     rainbowSDK.connection.signin(myRainbowLogin, myRainbowPassword)
-    
+
       .then(function (account) {
         // Successfully signed to Rainbow and the SDK is started completely. Rainbow data can be retrieved.
 
@@ -169,10 +169,10 @@ class App extends React.Component {
 
   login = (username, password, queryType) => {
     //console.log(username, "*********************************")
-    if (username.length > 25 || password.length > 25 || username.includes("'")){
-      window.alert("You have entered an invalid username !") ; 
-      window.location.reload() ; 
-      return ; 
+    if (username.length > 40 || password.length > 40 || username.includes("'") || username.includes(";")) {
+      window.alert("Username or Password is invalid. Please do not include any special characters besides '@' and '.'");
+      window.location.reload();
+      return;
     }
     this.state.userName = username;
     //this.setState({ userName: username });
@@ -188,7 +188,8 @@ class App extends React.Component {
     let route = 'http://localhost:3001/login/'.concat(username);
     console.log(route);
 
-    let stateOfReq = "false";
+    // let stateOfReq = "false";
+    let stateOfReq;
     // while (stateOfReq == "false") {
     // console.log("In the while loop")
     axios.post(route, customerCreds)
@@ -200,32 +201,38 @@ class App extends React.Component {
         let customerID = response.data.customer
         let agentJID = response.data.agent
 
+        // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+        // this.setState({ loggedin: 2 }); // changed
+        // this.render();
+        if (stateOfReq == 'true') {
+
+          // this.wait(stateOfReq, route, customerCreds);
+          //this.setState({ loggedin: 2 });
+          //window.location.reload(true);
+          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+          this.setState({ loggedin: 2 }); // changed
+          this.render();
+        }
+        else if (stateOfReq == 'false') {
+          this.setState({ message: "The credentials you entered were wrong ! Please reload and try again" })
+          this.setState({ loggedin: 1 });
+          this.render();
+          //this.setState({loggedin : 1})
+        }
+
       }, (error) => {
         console.log(error);
       });
-    console.log(stateOfReq);
-    console.log("#############################################");
-    this.setState({ stateOfReq: stateOfReq });
-    this.setState({ customerCreds: customerCreds });
-    this.setState({ route: route });
-    if (stateOfReq == 'false') {
-
-      this.setState({ message: "The credentials you entered were wrong ! Please reload and try again" })
-      this.setState({ loggedin: 1 });
-      this.render();
-      this.wait(stateOfReq, route, customerCreds);
-      //this.setState({ loggedin: 2 });
-      //window.location.reload(true);
-    }
-    else if (stateOfReq == 'true') {
-      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-      this.setState({ loggedin: 2 }); // changed
-      //this.setState({loggedin : 1})
-    }
+    // while (stateOfReq == null) {
+    //   console.log(stateOfReq);
     // }
+    console.log("#############################################");
+    // this.setState({ stateOfReq: stateOfReq });
+    // this.setState({ customerCreds: customerCreds });
+    // this.setState({ route: route });
 
     document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady);
-    
+
     document.addEventListener(rainbowSDK.RAINBOW_ONLOADED, this.onLoaded);
     rainbowSDK.start();
     rainbowSDK.load();
@@ -254,10 +261,10 @@ class App extends React.Component {
     //   password: password,
     //   queryType: queryType
     // }
-    if (this.userName == ""){
+    if (this.userName == "") {
       window.location.reload(true);
-      return ;
-      
+      return;
+
     }
     let route = 'http://localhost:3001/signout/' + this.state.userName
     axios.post(route, { username: this.state.userName })
@@ -311,11 +318,17 @@ class App extends React.Component {
   componentDidMount() {
     // Activate the event listener
     this.setupBeforeUnloadListener();
-    document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived) ; 
-    document.addEventListener(rainbowSDK.connection.RAINBOW_ONCONNECTIONSTATECHANGED, this.signout) ; 
+    document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived);
+    document.addEventListener(rainbowSDK.connection.RAINBOW_ONCONNECTIONSTATECHANGED, this.onStateChange);
 
   }
 
+  onStateChange = () => {
+    if (rainbowSDK.connection.getState() == 'RAINBOW_CONNECTIONDISCONNECTED') {
+      console.log('The state change to disconnect!')
+      this.signout();
+    }
+  }
 
   wait = async (stat, route, customerCreds) => {
     let stateOfReq = stat;
@@ -368,10 +381,10 @@ class App extends React.Component {
 
   render() {
     //this.compareMessage()
-    if (this.state.loggedin == 1 && this.state.route != null && this.state.customerCreds != null && this.state.stateOfReq != null) {
-      this.wait(this.state.stateOfReq, this.state.route, this.state.customerCreds);
+    // if (this.state.loggedin == 1 && this.state.route != null && this.state.customerCreds != null && this.state.stateOfReq != null) {
+    //   this.wait(this.state.stateOfReq, this.state.route, this.state.customerCreds);
 
-    }
+    // }
     return (
 
       this.test()
