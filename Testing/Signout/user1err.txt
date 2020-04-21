@@ -1,0 +1,26 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1...
+* TCP_NODELAY set
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Connected to localhost (::1) port 3001 (#0)
+> POST /signout/:username=JohnDoe@mymail.sutd.edu.sg HTTP/1.1
+> Host: localhost:3001
+> User-Agent: curl/7.55.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 90
+> 
+} [90 bytes data]
+* upload completely sent off: 90 out of 90 bytes
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< Access-Control-Allow-Origin: *
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 32
+< ETag: W/"20-iEj10og8qP08TavAC2z9piEJFfM"
+< Date: Tue, 21 Apr 2020 05:45:23 GMT
+< Connection: keep-alive
+< 
+{ [32 bytes data]
+100   122  100    32  100    90     32     90  0:00:01 --:--:--  0:00:01   976
+* Connection #0 to host localhost left intact

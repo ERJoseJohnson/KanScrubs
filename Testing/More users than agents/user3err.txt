@@ -1,0 +1,53 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 3001 (#0)
+> POST /login/FrankDoe@mymail.sutd.edu.sg HTTP/1.1
+> Host: localhost:3001
+> User-Agent: curl/7.55.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 94
+> 
+} [94 bytes data]
+* upload completely sent off: 94 out of 94 bytes
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< Access-Control-Allow-Origin: *
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 141
+< ETag: W/"8d-cc3MXaZPWqSbsR5qSTeqlxDmCSo"
+< Date: Tue, 21 Apr 2020 05:37:55 GMT
+< Connection: keep-alive
+< 
+{ [141 bytes data]
+100   235  100   141  100    94    141     94  0:00:01 --:--:--  0:00:01   886
+* Connection #0 to host localhost left intact
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0* Could not resolve host: application
+* Closing connection 1
+curl: (6) Could not resolve host: application
+* Found bundle for host localhost: 0x1ab9af81c10 [can pipeline]
+* Re-using existing connection! (#0) with host localhost
+* Connected to localhost (::1) port 3001 (#0)
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0> POST /login/:username=FrankDoe@mymail.sutd.edu.sg HTTP/1.1
+> Host: localhost:3001
+> User-Agent: curl/7.55.1
+> Accept: */*
+> Content-Type: application/json
+> Content-Length: 94
+> 
+} [94 bytes data]
+* upload completely sent off: 94 out of 94 bytes
+< HTTP/1.1 200 OK
+< X-Powered-By: Express
+< Access-Control-Allow-Origin: *
+< Content-Type: application/json; charset=utf-8
+< Content-Length: 48
+< ETag: W/"30-qSbOh6RaupbFHWAPohCVnsAtpQA"
+< Date: Tue, 21 Apr 2020 05:37:57 GMT
+< Connection: keep-alive
+< 
+{ [48 bytes data]
+100   142  100    48  100    94     48     94  0:00:01 --:--:--  0:00:01  1014
+* Connection #0 to host localhost left intact

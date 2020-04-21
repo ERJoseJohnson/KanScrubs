@@ -43,67 +43,8 @@ class App extends React.Component {
     console.log(myRainbowPassword)
     // The SDK for Web is ready to be used, so you can sign in
     rainbowSDK.connection.signin(myRainbowLogin, myRainbowPassword)
-
       .then(function (account) {
         // Successfully signed to Rainbow and the SDK is started completely. Rainbow data can be retrieved.
-
-        // let onNewMessageReceived = function (event) {
-
-        //   let message = event.detail.message;
-        //   let conversation = event.detail.conversation;
-        //   let messageContent = "";
-
-        //   console.log(message)
-
-        //   // Acknowledge it
-        //   rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
-
-        //   // Text message received
-        //   messageContent = message.data;
-        //   console.log(messageContent)
-        //   msg = messageContent;
-        //   console.log(msg)
-
-
-
-        // var new_history = this.state.history;
-        // new_history.push({ user: "admin", message: messageContent });
-        // this.setState({ history: new_history });
-
-        // Send an answer
-        // rainbowSDK.im.sendMessageToConversation(conversation, messageContent + " read!");
-
-        // console.log("APSDOKAOPSDKPAOSKDP");
-        // let jid = "3ef04d45a9784a61bc1868a07ff9cf6d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"
-        // // let myContact = rainbowSDK.contacts.getContactByJID("85f5342e76c44c219eeff89d2ee49483@sandbox-all-in-one-rbx-prod-1.rainbow.sbg");
-        // // console.log(myContact);
-        // let myContact;
-        // rainbowSDK.contacts.searchByJid(jid).then((contact) => {
-        //   rainbowSDK.contacts.addToNetwork(contact).then((theContact) => {
-        //     myContact = theContact
-
-        //   }).then((err) => {
-        //     console.log(err);
-
-        //   })
-        // }).then((err) => {
-        //   console.log(err)
-        //   rainbowSDK.conversations.openConversationForContact(myContact).then((conversation) => {
-        //     rainbowSDK.im.sendMessageToConversation(conversation, "It works!");
-        //   }).catch((err) => {
-        //     console.log(err)
-        //   })
-        // })
-        // console.log("I am here ******************************************")
-        // console.log(self.state)
-        // var new_history = self.state.history;
-        // new_history.push({ user: self.state.userName, message: msg });
-        // console.log(new_history);
-        // self.setState({ history: new_history });
-
-        // };
-        // document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, onNewMessageReceived)
-
 
       })
       .catch(function (err) {
@@ -115,40 +56,8 @@ class App extends React.Component {
         console.log(err)
 
       });
-    // console.log("I am here ******************************************")
-    // var new_history = this.state.history;
-    // new_history.push({ user: this.state.userName, message: msg });
-    // console.log(new_history);
-    // this.setState({ history: new_history });
-    // this.setState({ loggedin: 1 });
-    // this.render();
-    // Listen when the SDK is ready
-    // document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady)
   };
 
-  // receiveMessage = function (event) {
-  //   // let onNewMessageReceived = function (event) {
-
-  //   let message = event.detail.message;
-  //   let conversation = event.detail.conversation;
-  //   let messageContent = "";
-
-  //   console.log(message)
-
-  //   // Acknowledge it
-  //   rainbowSDK.im.markMessageFromConversationAsRead(conversation, message);
-
-  //   // Text message received
-  //   messageContent = message.data;
-  //   console.log(messageContent)
-
-  //   var new_history = this.state.history;
-  //   new_history.push({ user: "Agent", message: messageContent });
-  //   this.setState({ history: new_history });
-  //   // };
-
-  //   document.addEventListener(rainbowSDK.im.RAINBOW_ONNEWIMMESSAGERECEIVED, this.onNewMessageReceived)
-  // }
   onLoaded = () => {
     console.log('[Hello World] :: On SDK Loaded !');
 
@@ -169,6 +78,8 @@ class App extends React.Component {
 
   login = (username, password, queryType) => {
     //console.log(username, "*********************************")
+
+    // SQL injection safety
     if (username.length > 40 || password.length > 40 || username.includes("'") || username.includes(";")) {
       window.alert("Username or Password is invalid. Please do not include any special characters besides '@' and '.'");
       window.location.reload();
@@ -188,10 +99,7 @@ class App extends React.Component {
     let route = 'http://localhost:3001/login/'.concat(username);
     console.log(route);
 
-    // let stateOfReq = "false";
     let stateOfReq;
-    // while (stateOfReq == "false") {
-    // console.log("In the while loop")
     axios.post(route, customerCreds)
       .then((response) => {
         console.log(response.data);
@@ -201,15 +109,8 @@ class App extends React.Component {
         let customerID = response.data.customer
         let agentJID = response.data.agent
 
-        // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
-        // this.setState({ loggedin: 2 }); // changed
-        // this.render();
         if (stateOfReq == 'true') {
-
-          // this.wait(stateOfReq, route, customerCreds);
-          //this.setState({ loggedin: 2 });
-          //window.location.reload(true);
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
+          // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5");
           this.setState({ loggedin: 2 }); // changed
           this.render();
         }
@@ -223,13 +124,8 @@ class App extends React.Component {
       }, (error) => {
         console.log(error);
       });
-    // while (stateOfReq == null) {
-    //   console.log(stateOfReq);
-    // }
-    console.log("#############################################");
-    // this.setState({ stateOfReq: stateOfReq });
-    // this.setState({ customerCreds: customerCreds });
-    // this.setState({ route: route });
+
+    // console.log("#############################################");
 
     document.addEventListener(rainbowSDK.RAINBOW_ONREADY, this.onReady);
 
@@ -238,29 +134,11 @@ class App extends React.Component {
     rainbowSDK.load();
 
 
-    //this.setState({ loggedin: 1 });
-
     console.log("logged in ")
   };
 
-  // compareMessage = () => {
-  //   if (msg != prevMessage) {
-  //     console.log("I am here ******************************************")
-  //     var new_history = this.state.history;
-  //     new_history.push({ user: this.state.userName, message: msg });
-  //     console.log(new_history);
-  //     this.setState({ history: new_history });
-  //     prevMessage = msg
-  //     this.render()
-  //   }
-  // }
-
   signout = () => {
-    // const customerCreds = {
-    //   username: username,
-    //   password: password,
-    //   queryType: queryType
-    // }
+
     if (this.userName == "") {
       window.location.reload(true);
       return;
@@ -323,6 +201,10 @@ class App extends React.Component {
 
   }
 
+  componentWillUnmount() {
+    this.signout()
+  }
+
   onStateChange = () => {
     if (rainbowSDK.connection.getState() == 'RAINBOW_CONNECTIONDISCONNECTED') {
       console.log('The state change to disconnect!')
@@ -332,7 +214,6 @@ class App extends React.Component {
 
   wait = async (stat, route, customerCreds) => {
     let stateOfReq = stat;
-    //while (stateOfReq != 'true') {
     console.log(stateOfReq);
     axios.post(route, customerCreds)
       .then((response) => {
@@ -349,8 +230,6 @@ class App extends React.Component {
     if (stateOfReq == 'true') {
       this.setState({ loggedin: 2 });
     }
-    // this.render() ; 
-    //}
   }
   test = () => {
     if (this.state.loggedin == 0) {
@@ -380,13 +259,7 @@ class App extends React.Component {
 
 
   render() {
-    //this.compareMessage()
-    // if (this.state.loggedin == 1 && this.state.route != null && this.state.customerCreds != null && this.state.stateOfReq != null) {
-    //   this.wait(this.state.stateOfReq, this.state.route, this.state.customerCreds);
-
-    // }
     return (
-
       this.test()
     );
   }

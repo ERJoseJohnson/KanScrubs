@@ -130,32 +130,6 @@ app.post('/login/:username', (req, res) => {
         res.end();
     })
 
-    // if (agentQ.isEmpty()) {
-    //     console.log('No agent found')
-    //     res.status(200).send(chatPairs)
-    //     res.end()
-    // }
-    // else {
-    //     chatPairs.customer = customerQ.dequeue()
-    //     chatPairs.agent = agentQ.dequeue()
-    //     chatPairs.success = "true"
-
-    //     db.addCustomerQuery(username, queryType, chatPairs.agent).then((addresult) => {
-    //         console.log('Query added successfully')
-    //     }).catch((error) => {
-    //         console.log('Query add unsuccessful')
-    //         console.log(error)
-    //     })
-
-    //     db.updateAgentStatus(chatPairs.agent, false).then((result) => {
-    //         console.log('Agent status update successful')
-    //     }).catch((error) => {
-    //         console.log(error)
-    //     })
-    //     res.status(200).send(chatPairs)
-    //     res.end()
-    // }
-
 })
 
 app.post('/signout/:username', (req, res) => {
@@ -195,36 +169,14 @@ app.post('/signout/:username', (req, res) => {
             })
 
         }
-        // db.deleteCustomerQuery(result[0].id).then((result) => {
-        //     console.log('Query successfully deleted')
-        // }).catch((error) => {
-        //     console.log(error)
-        // })
 
-
-        // res.status(200).send({ 'success': 'signout successful' })
-        // res.end()
     }).catch((error) => {
         console.log('CustResult error failure')
         console.log(error)
-        // res.status(400).send({ 'success': 'signout unsuccessful' })
-        // res.end()
+
     })
 })
 
 app.listen(3001, () => {
     console.log(`App running on port 3001.`)
 })
-
-// db.getAvailableAgents(specs).then((result) => {
-//     for (i = 0; i < result.length; i++) {
-//         agentQ.enqueue(result[i].id)
-//         console.log('All the available agents', agentQ.printQueue())
-//     }
-// }, ((error) => {
-//     console.log('Error getting available agents')
-//     console.log(error)
-// })).catch((error) => {
-//     console.log(error)
-//     console.log('Error getting available agents')
-// })
