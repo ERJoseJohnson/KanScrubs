@@ -7,8 +7,6 @@
 ECHO OFF
 
 :: Makes a POST request, adding User#1-7 to database
-::curl -v -H "Content-Type: application/json" http://localhost:3001/login/:username=JohnDoe@mymail.sutd.edu.sg -d "{\"username\":\"JohnDoe@mymail.sutd.edu.sg\",\"password\":\"IAmJohnDoes1!\",\"queryType\":\"General\"}"  > user1.txt 2> user1err.txt
-::curl -v -H 'Content-Type: application/json' http://localhost:3001/login/:username=JohnDoe@mymail.sutd.edu.sg -d '{"username":"JohnDoe@mymail.sutd.edu.sg","password":"IAmJohnDoes1!","queryType":"General"}'  > user1.txt 2> user1err.txt
 curl -v -H "Content-Type: application/json" http://localhost:3001/login/JohnDoe@mymail.sutd.edu.sg -d "{\"username\":\"JohnDoe@mymail.sutd.edu.sg\",\"password\":\"IAmJohnDoes1!\",\"queryType\":\"General\"}" -H 'Content-Type: application/json' http://localhost:3001/login/:username=JohnDoe@mymail.sutd.edu.sg > user1.txt 2> user1err.txt
 curl -v -H "Content-Type: application/json" http://localhost:3001/login/JaneDoe@mymail.sutd.edu.sg -d "{\"username\":\"JaneDoe@mymail.sutd.edu.sg\",\"password\":\"IAmJaneDoes1!\",\"queryType\":\"Mortgage\"}" -H 'Content-Type: application/json' http://localhost:3001/login/:username=JaneDoe@mymail.sutd.edu.sg > user2.txt 2> user2err.txt
 curl -v -H "Content-Type: application/json" http://localhost:3001/login/FrankDoe@mymail.sutd.edu.sg -d "{\"username\":\"FrankDoe@mymail.sutd.edu.sg\",\"password\":\"IAmFrankDoes1!\",\"queryType\":\"Insurance\"}" -H 'Content-Type: application/json' http://localhost:3001/login/:username=FrankDoe@mymail.sutd.edu.sg > user3.txt 2> user3err.txt
@@ -17,7 +15,6 @@ curl -v -H "Content-Type: application/json" http://localhost:3001/login/MaryDoe@
 curl -v -H "Content-Type: application/json" http://localhost:3001/login/LisaDoe@mymail.sutd.edu.sg -d "{\"username\":\"LisaDoe@mymail.sutd.edu.sg\",\"password\":\"IAmLisaDoes1!\",\"queryType\":\"General\"}" > user6.txt 2> user6err.txt
 curl -v -H "Content-Type: application/json" http://localhost:3001/login/BobDoe@mymail.sutd.edu.sg -d "{\"username\":\"BobDoe@mymail.sutd.edu.sg\",\"password\":\"IAmBobDoes1!\",\"queryType\":\"Credit\"}" > user7.txt 2> user7err.txt
 
-:: Need to check whether ! are special chars, and whether the '' are needed or affects the commands.
 
 :: Catches errors
 IF %ERRORLEVEL% NEQ 0 (

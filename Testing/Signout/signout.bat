@@ -1,4 +1,4 @@
-:: This file tests what happens when user logs out.
+:: This file tests what happens when user logs out. It will free up the agent in our database.
 
 ECHO OFF
 

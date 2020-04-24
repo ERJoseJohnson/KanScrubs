@@ -14,8 +14,11 @@ public class KanScrubsTestMultipleLogin {
 	static String myPassword = "IAmJohnDoes1!";
 	public static void main(String[] args) throws InterruptedException {
 			
-			System.setProperty("webdriver.gecko.driver", "C:\\Users\\Jose Johnson\\selenium-java-3.141.59\\geckodriver.exe");
+			// Path to gecko webdriver
+			String path_to_gecko = "C:\\Users\\Jose Johnson\\selenium-java-3.141.59\\geckodriver.exe";
+			System.setProperty("webdriver.gecko.driver", path_to_gecko);
 			
+			// Opens 5 instances
 			for (int i = 0; i < 5; i++) {
 				
 			WebDriver driver = new FirefoxDriver();
@@ -24,10 +27,12 @@ public class KanScrubsTestMultipleLogin {
 			driver.manage().window().maximize();
 			Thread.sleep(7000);
 			
+			// Finds the respective webelements
 			WebElement username = driver.findElement(By.className("username"));
 			WebElement password = driver.findElement(By.className("password"));
 			WebElement submit = driver.findElement(By.className("grow"));
 			
+			// Enters the login details
 			username.sendKeys(myUserName);
 			password.sendKeys(myPassword);
 			submit.click();
