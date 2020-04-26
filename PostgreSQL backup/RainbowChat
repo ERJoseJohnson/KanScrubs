@@ -1,0 +1,126 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.2
+-- Dumped by pg_dump version 12.2
+
+-- Started on 2020-04-26 19:07:15
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 202 (class 1259 OID 16399)
+-- Name: agents; Type: TABLE; Schema: public; Owner: johnson
+--
+
+CREATE TABLE public.agents (
+    id character varying(100),
+    jid character varying(100),
+    name character varying(30),
+    querytype character varying(30),
+    status boolean,
+    timelastavailable timestamp with time zone
+);
+
+
+ALTER TABLE public.agents OWNER TO johnson;
+
+--
+-- TOC entry 204 (class 1259 OID 16405)
+-- Name: customercreds; Type: TABLE; Schema: public; Owner: johnson
+--
+
+CREATE TABLE public.customercreds (
+    id character varying(100),
+    jid character varying(100),
+    username character varying(30),
+    password character varying(30)
+);
+
+
+ALTER TABLE public.customercreds OWNER TO johnson;
+
+--
+-- TOC entry 203 (class 1259 OID 16402)
+-- Name: customres; Type: TABLE; Schema: public; Owner: johnson
+--
+
+CREATE TABLE public.customres (
+    id character varying(100),
+    jid character varying(100),
+    username character varying(30),
+    querytype character varying(30),
+    assignedagent character varying(100),
+    querycreatedtime timestamp with time zone
+);
+
+
+ALTER TABLE public.customres OWNER TO johnson;
+
+--
+-- TOC entry 2819 (class 0 OID 16399)
+-- Dependencies: 202
+-- Data for Name: agents; Type: TABLE DATA; Schema: public; Owner: johnson
+--
+
+COPY public.agents (id, jid, name, querytype, status, timelastavailable) FROM stdin;
+5e884fc235c8367f99b96ccb	7bc6b252f7d74513a614a53e55a5e769@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	SarahDoe@mymail.sutd.edu.sg	Mortgage	f	\N
+5e88507b35c8367f99b96cef	406ac509139f4b538186713141c5cc0d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	PaulDoe@mymail.sutd.edu.sg	Insurance	f	\N
+5e884f4635c8367f99b96cc2	3e7de348c8624d9994e6fc40da2698c0@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	MarkDoe@mymail.sutd.edu.sg	Card	f	\N
+5e88501e35c8367f99b96cd4	2bca6f31481c4c4999770cb690c052aa@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"	SusanDoe@mymail.sutd.edu.sg	Credit	f	\N
+5e4bf69fb4528b74a00c8e44	e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	josejohnson@mymail.sutd.edu.sg	General	f	\N
+\.
+
+
+--
+-- TOC entry 2821 (class 0 OID 16405)
+-- Dependencies: 204
+-- Data for Name: customercreds; Type: TABLE DATA; Schema: public; Owner: johnson
+--
+
+COPY public.customercreds (id, jid, username, password) FROM stdin;
+5e689b52566b33069dadda06	96eda241bf90483eb3809e08762b8c42@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	JohnDoe@mymail.sutd.edu.sg	IAmJohnDoes1!
+5e689b8e566b33069dadda0f	35d0036ab99a4f10b4e6e091f6fcd258@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	JaneDoe@mymail.sutd.edu.sg	IAmJaneDoes1!
+5e884d2f35c8367f99b96c8c	add054ae87b440ce8e6f88b26c95008c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	FrankDoe@mymail.sutd.edu.sg	IAmFrankDoes1!
+5e884de835c8367f99b96c95	5fdf682b106642f9ad2d15cde5d29f95@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	JamesDoe@mymail.sutd.edu.sg	IAmJamesDoes1!
+5e884e1135c8367f99b96c9e	78ee9f7f7bf0431baf1c1394652897a1@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	MaryDoe@mymail.sutd.edu.sg	IAmMaryDoes1!
+5e884ead35c8367f99b96cb0	9193a68d71d54bbd99e902f3990e4702@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	LisaDoe@mymail.sutd.edu.sg	IAmLisaDoes1!
+5e884ef335c8367f99b96cb9	03790128347e4ad09f420fff68700422@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	BobDoe@mymail.sutd.edu.sg	IAmBobDoes1!
+\.
+
+
+--
+-- TOC entry 2820 (class 0 OID 16402)
+-- Dependencies: 203
+-- Data for Name: customres; Type: TABLE DATA; Schema: public; Owner: johnson
+--
+
+COPY public.customres (id, jid, username, querytype, assignedagent, querycreatedtime) FROM stdin;
+5e689b8e566b33069dadda0f	35d0036ab99a4f10b4e6e091f6fcd258@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	JaneDoe@mymail.sutd.edu.sg	Mortgage	7bc6b252f7d74513a614a53e55a5e769@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	2020-04-21 13:37:52.544+08
+5e884d2f35c8367f99b96c8c	add054ae87b440ce8e6f88b26c95008c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	FrankDoe@mymail.sutd.edu.sg	Insurance	406ac509139f4b538186713141c5cc0d@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	2020-04-21 13:37:55.415+08
+5e884de835c8367f99b96c95	5fdf682b106642f9ad2d15cde5d29f95@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	JamesDoe@mymail.sutd.edu.sg	Card	3e7de348c8624d9994e6fc40da2698c0@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	2020-04-21 13:37:58.277+08
+5e884ef335c8367f99b96cb9	03790128347e4ad09f420fff68700422@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	BobDoe@mymail.sutd.edu.sg	Credit	2bca6f31481c4c4999770cb690c052aa@sandbox-all-in-one-rbx-prod-1.rainbow.sbg"	2020-04-21 13:38:01.278+08
+5e689b52566b33069dadda06	96eda241bf90483eb3809e08762b8c42@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	JohnDoe@mymail.sutd.edu.sg	General	e887cc4d73c1483eba4e2214798d196c@sandbox-all-in-one-rbx-prod-1.rainbow.sbg	2020-04-21 13:45:32.251+08
+\.
+
+
+-- Completed on 2020-04-26 19:07:15
+
+--
+-- PostgreSQL database dump complete
+--
+
