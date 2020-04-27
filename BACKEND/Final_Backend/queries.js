@@ -28,6 +28,7 @@ const getCurrentCustomers = (request, response) => {
     })
 }
 
+// Retrieves all the available agents for a specific queryType
 const getAvailableAgents = (specs) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM agents WHERE (status = $1 AND querytype = $2) ORDER BY timelastavailable ASC', [true, specs], (error, results) => {
@@ -40,6 +41,7 @@ const getAvailableAgents = (specs) => {
     })
 }
 
+// Retrieves all the customer queries that have unassigned agents
 const getCustomerQueries = () => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM customres WHERE assignedagent IS NULL ORDER BY querycreatedtime ASC', (error, results) => {
@@ -51,6 +53,7 @@ const getCustomerQueries = () => {
     })
 }
 
+// Retrieve the customer credentials according to their username
 const getCustomerfromCreds = (username) => {
     return new Promise((resolve, reject) => {
         console.log(username)
@@ -64,6 +67,7 @@ const getCustomerfromCreds = (username) => {
     })
 }
 
+// Retrieve customer query according to their username
 const getCustomerfromUsername = (username) => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM customres WHERE username = $1', [username], (error, results) => {
@@ -79,6 +83,7 @@ const getCustomerfromUsername = (username) => {
     })
 }
 
+// Update the agent status to true/false according to their Jid 
 const updateAgentStatus = (agentJID, status) => {
     return new Promise((resolve, reject) => {
         pool.query('UPDATE agents SET status = $1 WHERE jid = $2', [status, agentJID], (error, results) => {
@@ -91,6 +96,7 @@ const updateAgentStatus = (agentJID, status) => {
     })
 }
 
+// Update the customer query with the assigned agent Jid
 const setCustomerAssignedAgent = (customerID, agentID) => {
     return new Promise((resolve, reject) => {
         pool.query('UPDATE customres SET assignedagent = $1 WHERE id = $2', [agentID, customerID], (error, results) => {
@@ -103,6 +109,7 @@ const setCustomerAssignedAgent = (customerID, agentID) => {
     })
 }
 
+// Adds customer query into the query database
 const addCustomerQuery = (username, querytype, agentpair) => {
     return new Promise((resolve, reject) => {
         getCustomerfromCreds(username).then((result) => {
@@ -123,6 +130,7 @@ const addCustomerQuery = (username, querytype, agentpair) => {
     })
 }
 
+// Deletes the customer query from the query database
 const deleteCustomerQuery = (customerID) => {
     return new Promise((resolve, reject) => {
         pool.query('DELETE FROM customres WHERE id = $1', [customerID], (error, result) => {

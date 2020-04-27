@@ -24,6 +24,14 @@ app.get('/users', db.getCustomers)
 
 app.get('/customers', db.getCurrentCustomers)
 
+/*
+This is the endpoint that a customer uses for logging in.
+It takes in the username, password and querytype of the user. 
+It checks if the customer is actually existant in the database, and checks if there is an available agent for them 
+If there is an available agent, it returns the agent id and success=true
+It then stores the query that is created and changes the status of the agent to false
+If there is no available agent, then it returns success=false
+*/
 app.post('/login/:username', (req, res) => {
     console.log('Login request received!')
     let data = req.body
@@ -132,6 +140,14 @@ app.post('/login/:username', (req, res) => {
 
 })
 
+
+/*
+This is the endpoint that the customer goes to for signout
+The username is taken as an input
+We then retrieve the query associated with that username, and delete it
+We then change the status of the agent to true
+We then return that the signout is successful
+*/
 app.post('/signout/:username', (req, res) => {
     // console.log(req)
     console.log('Signout request received!')
